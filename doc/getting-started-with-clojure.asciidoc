@@ -1,0 +1,515 @@
+Getting started with Clojure
+============================
+:toc: left
+:toc-title: Getting started with Clojure
+:source-highlighter: pygments
+
+This document should help guide you through the process to get started
+developing with Clojure using https://www.jetbrains.com/idea/[IntelliJ IDEA]
+and the plug-in https://cursiveclojure.com/[Cursive Clojure].  While you do not
+absolutely need to use this set-up, it is the one that I believe is the most
+approachable.
+
+
+Install a Java SE Development Kit
+---------------------------------
+
+In order to develop Clojure or use IntelliJ IDEA, you will need to install Java
+SE Development Kit (JDK) version 1.6 or higher.  Note that a JDK is needed, not
+merely a Java Runtime Environment (JRE).  You can download the latest JDK
+directly from Oracle at http://www.oracle.com/technetwork/java/javase/downloads/index.html[].
+
+
+
+=== Windows
+
+For Windows, just download and run the installer for the latest JDK version.
+Be sure to use the 64-bit version if you are running a 64-bit operating system.
+
+=== Mac OS X
+
+OS X users have the option of skipping this step.  When trying to run IntelliJ
+IDEA for the first time after installation, it will direct you to a web page
+where you can download an old version of Java for OS X.  That should work, but
+you should consider running the latest Oracle release.
+
+=== Linux
+
+If you are using Linux, you can use the OpenJDK 7 JDK as an alternative to the
+Oracle JDK.
+
+
+Install IntelliJ IDEA
+---------------------
+
+The first step is to https://www.jetbrains.com/idea/download/[download IntelliJ
+IDEA] for your platform.  The system requirements and installation instructions
+are accessible from the download page.
+
+If this is the first time you run IntelliJ IDEA, you will be prompted for a
+number of things, such as importing settings, accepting licenses, entering
+license information, and finally a number of IDE settings.  Feel free to accept
+the defaults for all of these.
+
+
+.Licensing IntelliJ IDEA
+******************************************************************************
+By default, IntelliJ IDEA comes with a thirty day license.  If you requested a
+student license for RubyMine earlier in the semester, you can use the same
+license for IntelliJ IDEA.  If you did not request a student license earlier,
+you can easily do so by requesting one with your *na.edu* e-mail address from
+https://www.jetbrains.com/student/[].
+******************************************************************************
+
+
+Install Cursive Clojure
+-----------------------
+
+Cursive has its own https://cursiveclojure.com/userguide/[Getting Started]
+page.  However, I am providing somewhat more detailed instructions.  Now that
+you have IntelliJ IDEA installed and set up, you should see a dialogue similar
+to the following:
+
+.Initial dialogue
+image:startup-dialogue.png[]
+
+Click on the *Configure* drop-down on the lower-right edge and then click on
+*Plugins* in the pop-up.  You should now see the following dialogue:
+
+.Plugins
+image:plugin-setup-dialogue.png[]
+
+On this dialogue, you will need to click on the *Browse repositories…*
+button.  This will bring up the following dialogue:
+
+.Browse Repositories
+image:browse-repositories-dialogue.png[]
+
+The next step is to *Manage repositories…*.  You will now get the following
+dialogue:
+
+.Custom Plugin Repositories
+image:custom-plugin-repositories-dialogue.png[]
+
+Click on the *+* and you will now see the following dialogue prompting you for
+a repository URL:
+
+.Add Repository
+image:add-repository-dialogue.png[]
+
+Assuming you are using the latest version of IntelliJ IDEA at the time of this
+writing (version 14.1), you will need to type in
+`https://cursiveclojure.com/plugins-14.1.xml`.  Feel free to *Check Now* if you
+wish, but otherwise simply click *OK* and you will be returned to the 'Custom
+Plugin Repositories' dialogue which should now contain the repository you just
+added.  Click *OK* there as well, and you will no return to the 'Browse
+Repositories' dialogue, which will take a moment to refresh.
+
+You should now be able to scroll down the list to find Cursive and select it,
+as in the screen capture below:
+
+.Selecting the Cursive plug-in
+image:selecting-cursive.png[]
+
+Once you have found and selected the plug-in, you can install it by clicking on
+the green *Install plugin* button.  Just click *Yes* to download and install
+Cursive.  You will then see a progress bar as the plug-in downloads.  Finally,
+you will return to the 'Browse Repositories' dialogue, but this time where the
+*Install plugin* button was, you will now find a button to *Restart IntelliJ
+IDEA*:
+
+.Cursive is almost ready
+image:restart-to-install-cursive.png[]
+
+Click on *Restart IntelliJ IDEA* and confirm that you want to restart.
+
+// Installation
+// ------------
+// 
+// This document should guide you through the process of installing
+// http://www.swi-prolog.org/[SWI-Prolog] and starting on your homework
+// assignment.  SWI-Prolog is a free and open source Prolog implementation.  There
+// are other Prolog implementations available, but I have chosen to use this one
+// as it should provide a consistent user experience across all platforms that
+// does not require mastery of the command line.
+// 
+// Jump to the section for your operating system:
+// 
+// * <<Installing on Windows>>
+// * <<Installing on OS X>>
+// * <<Installing on Linux>>
+// 
+// === Installing on Windows
+// 
+// This section will guide you through installation of SWI-Prolog on a recent OS X
+// system.  This has been tested with Windows 7 Professional, but should apply for
+// any Windows computer running Windows XP, 7, or 8.
+// 
+// ==== Step 1. Download SWI-Prolog
+// 
+// From the http://www.swi-prolog.org/download/stable[SWI-Prolog stable version
+// download page], download the Windows installer file for the latest stable
+// release of SWI-Prolog.  Note that there are two versions available for Windows:
+// 32-bit and 64-bit.  You can use either one, but I recommend the 32-bit version.
+// 
+// ==== Step 2. Install SWI-Prolog
+// 
+// Once it has finished downloading, you can run the installer.  You may encounter
+// the following dialogue, where you can just click 'Yes'.
+// 
+// .Windows security dialogue
+// image:win00-security-dialogue.png[]
+// 
+// Work your way through the wizard.  I recommend installing accepting all of the
+// default settings.  Once installation is complete, you should be able to see
+// SWI-Prolog in your start menu.
+// 
+// .SWI-Prolog installed
+// image:win01-swi-prolog-installed.png[width="50%",link="win01-swi-prolog-installed.png"]
+// 
+// ==== Step 3. Run SWI-Prolog
+// 
+// If you run SWI-Prolog, you should now see the following window.
+// 
+// .SWI-Prolog running on Windows
+// image:win02-swi-prolog-running.png[width="50%",link="win02-swi-prolog-running.png"]
+// 
+// If you see this, you can now progress to <<Getting to know SWI-Prolog>>.
+// 
+// 
+// === Installing on OS X
+// 
+// This section will guide you through installation of SWI-Prolog on a recent OS X
+// system.  This has been tested with a fresh install of Yosemite 10.10.2.
+// 
+// [NOTE]
+// It is also possible to install SWI-Prolog using homebrew.  However, this will
+// not install the GUI.  Nonetheless, if you want to opt for this route, feel free
+// to give it a go.
+// 
+// ==== Step 1: Download XQuartz
+// 
+// XQuartz is an implementation of the X Window System that runs on OS X.  This is
+// used by SWI-Prolog to provide various graphical development tools.  To download
+// XQuartz, go to its http://xquartz.macosforge.org/landing/[homepage] and
+// download `dmg` file for the latest version.
+// 
+// ==== Step 2. Install XQuartz
+// 
+// Once it is downloaded, you can find it in your Downloads folder and click on
+// it.  You should be presented with a window similar to the following:
+// 
+// .Opening XQuartz
+// image:osx00-open-xquartz.png[width="50%",link="osx00-open-xquartz.png"]
+// 
+// Double-clicking on the XQuartz `pkg` icon will start the installation process.
+// The first screen you see should look like:
+// 
+// .Installing XQuartz
+// image:osx01-install-xquartz.png[width="50%",link="osx01-install-xquartz.png"]
+// 
+// Just click your way through the wizard and enter your password when prompted.
+// You will be told that you will need to log out and log back in, and in the end
+// the installation should succeed:
+// 
+// .XQuartz installed
+// image:osx02-xquartz-installed.png[width="50%",link="osx02-xquartz-installed.png"]
+// 
+// You can now close both windows and eject the XQuartz installation image.
+// 
+// .Eject the XQuartz installation image
+// image:osx03-eject-xquartz.png[width="50%",link="osx03-eject-xquartz.png"]
+// 
+// Finally, go ahead and log out and log back in.  Once you log back in, XQuartz
+// should be fully configured for you.
+// 
+// ==== Step 3: Download and install SWI-Prolog
+// 
+// Next, from the http://www.swi-prolog.org/download/stable[SWI-Prolog stable
+// version download page], download the `dmg` file for the latest stable release
+// of SWI-Prolog and open it.  You should be presented with a window similar to
+// the following:
+// 
+// .SWI-Prolog installation window
+// image:osx04-swi-prolog-install.png[width="50%",link="osx04-swi-prolog-install.png"]
+// 
+// Click on the 'Applications' icon to open the applications folder, and then drag
+// the SWI-Prolog icon to the applications folder.  This will install SWI-Prolog.
+// Once installation completes, you can close the windows and eject the
+// installation image.
+// 
+// ==== Step 4: Run SWI-Prolog
+// 
+// You should now try to run SWI-Prolog.  If you see the windows and menus as in the
+// below image, you have successfully installed SWI-Prolog.
+// 
+// .SWI-Prolog running
+// image:osx05-swi-prolog-running.png[width="50%",link="osx05-swi-prolog-running.png"]
+// 
+// If you see this, you can now progress to <<Getting to know SWI-Prolog>>.
+// 
+// === Installing on Linux
+// 
+// The specifics of installing on particular Linux distributions is really beyond
+// the scope of this document.  If you are using Linux, I trust that you know how
+// to install software for your distribution.  In general, you will be wanting to
+// install an `swi-prolog` package.
+// http://www.swi-prolog.org/build/LinuxDistro.txt[This page] has some additional
+// details on how to install for a few distributions.
+// 
+// 
+// == Getting to know SWI-Prolog
+// 
+// This section should guide you through the basics of using SWI-Prolog and should
+// prepare you for your first Prolog assignment.
+// 
+// === Performing basic queries
+// 
+// Once you have started SWI-Prolog, you will be in a window with a prompt `?-`.
+// This prompt allows you to perform queries on the current database.  For
+// example, you can ask: does `a` unify with `a` by typing `=(a, a).`?  An
+// alternative way of asking the same question is the more natural `a = a.`.
+// 
+// .Prolog terminology
+// ********************************************************************************
+// We will cover these terms in more detail in class, but feel free to consult the
+// <<Additional resources>> for more information.
+// 
+// term::
+//   A 'term' is the basic data type in Prolog, which can be an 'atom', a
+//   'number', a 'variable', or a 'compound term'.
+// atom::
+//   An 'atom' is a symbol whose value is itself.  Otherwise, atoms have no
+//   special meaning.  Most often, symbols are just bare words such as `x` or
+//   `mary`, in which case they must begin with a lower-case letter.  Atoms may be
+//   quoted, as in `'x'`, in which case they may include spaces or start with
+//   upper-case letters, such as `'an atom'` or `'Atomic'`.
+// number::
+//   A 'number' is just as it sounds, a number.  Prolog has traditionally only had
+//   integers; however, many implementations, including SWI-Prolog, have support
+//   for floating point and rational numbers.  Numeric literals are written as you
+//   would expect, e.g. 1 is `1`.
+// variable::
+//   A 'variable' is a symbol which can stand for a value.  Variables look like
+//   atoms, but may not be quoted and must begin with an underscore (_) or an
+//   upper-case letter.  During the process of 'unification', variables get bound
+//   to values.  Example variables  include `A`, `Variable`, and `_variable`.
+// +
+// A variable can either be 'instantiated' or 'uninstantiated'.  An uninstantiated
+// variable does not have a particular value, so it can potentially be anything.
+// During 'unification', Prolog will instantiate a variable so that it has a
+// particular value.
+// compound term::
+//   A compund term is made up of an atom called a 'functor' and one or more terms
+//   called 'arguments'.  These look much like a function call in a language like
+//   Java or C.  For example, `mother(mary, jake)` is compound term where `mother`
+//   is the functor and `mary` and `jake` are the arguments.
+// unification::
+//   Unification is the process by which Prolog determines if two terms can the
+//   same.  We will delve more into the details of the unification process in
+//   class.
+// ********************************************************************************
+// 
+// .Does `a` unify with `a`?
+// [source,prolog]
+// ------------------------------------------------------------------------------
+// ?- =(a, a).
+// true.
+// 
+// ?- a = a.
+// true.
+// 
+// ?-
+// ------------------------------------------------------------------------------
+// 
+// This is a very basic query.  You can also try performing queries with numbers
+// and using functors.  Try the following:
+// 
+// * `1 = 2.`
+// * `a = 1.`
+// * `a = 'a'.`
+// * `foo(a) = foo('a').`
+// * `foo(1) = bar(1).`
+// * `'hello there' = hello_there`
+// 
+// Now you can try mixing in a variable.  For example, you can ask, ‘what unifies
+// with `a`?’ using either `a = X.` or `X = a`.
+// 
+// .What unifies with `a`?
+// [source,prolog]
+// ------------------------------------------------------------------------------
+// ?- a = X.
+// X = a.
+// 
+// ?- X = a.
+// X = a.
+// 
+// ?-
+// ------------------------------------------------------------------------------
+// 
+// Now try the following unifications using variables:
+// 
+// * `1 = X.`
+// * `foo(X) = foo(a).`
+// * `foo(X) = a.`
+// * `foo(X) = foo(Y).`
+// 
+// === Creating a database of facts
+// 
+// Up until now, you have only been able to perform queries that only rely on what
+// you provide during the query itself.  How do you add facts that you can query?
+// If you try to add a fact from the current window, you will get an error.  For
+// example, what happens if you try to state `father(joe, jake).`?
+// 
+// .Try to state that `father(joe, jake).`
+// [source,prolog]
+// ------------------------------------------------------------------------------
+// ?- father(joe, jake).
+// ERROR: toplevel: Undefined procedure: father/2 (DWIM could not correct goal)
+// ?-
+// ------------------------------------------------------------------------------
+// 
+// This is telling your that Prolog does not know anything about `father`.  How do
+// you teach it?  SWI-Prolog requires you to load the facts from a file.  Download
+// link:facts.pl['facts.pl'] to your computer.   This is a Prolog source file that
+// is contains a comment and the fact `father(joe, jake).`.  Quit Prolog and
+// restart it by opening your copy of 'facts.pl'.  This will start SWI-Prolog
+// using the directory of 'facts.pl' as the working directory.  On Windows, this
+// should also load database.
+// 
+// [NOTE]
+// Since ‘pl’ is the same extension that is commonly used for Perl files, you may
+// need to right-click on the file and tell your operating system to open the file
+// with SWI-Prolog.
+// 
+// Once SWI-Prolog has started, you can be sure that the database is loaded by
+// typing in `[facts]`.  This is short-hand for `consult(facts)`, which will look
+// for and load the file called 'facts.pl'.  You should see output similar to the
+// following:
+// 
+// .Loading up 'facts.pl'
+// [source,prolog]
+// ------------------------------------------------------------------------------
+// ?- [facts].
+// % facts compiled 0.00 sec, 2 clauses
+// true.
+// 
+// ?-
+// ------------------------------------------------------------------------------
+// 
+// Now, we should be able to perform a few queries:
+// 
+// .Querying the database
+// [source,prolog]
+// ------------------------------------------------------------------------------
+// ?- father(joe, jake).
+// true.
+// 
+// ?- father(jake, joe).
+// false.
+// 
+// ?- father(X, jake).
+// X = joe.
+// 
+// ?- father(jake, X).
+// false.
+// 
+// ?- father(X, Y).
+// X = joe,
+// Y = jake.
+// 
+// ?-
+// ------------------------------------------------------------------------------
+// 
+// Well, this is all fine and good, but the database only contains one fact.  How
+// can you add more?  You could edit the file 'facts.pl' outside of SWI-Prolog and
+// reload it using `[facts].`.  However, SWI-Prolog comes with a handy way of
+// doing all of this.  At the prompt, just type `edit.`.  This will bring up the
+// PceEmacs editor with the `facts.pl` file loaded.
+// 
+// .PceEmacs editing 'facts.pl'
+// image:pceemacs.png[width="50%",link="pceemacs.png"]
+// 
+// Now, you can edit the file within this editor, which provides some syntax
+// highlighting and basic static analysis.
+// 
+// [NOTE]
+// If you prefer to use some other editor, feel free to consult the page on
+// http://www.swi-prolog.org/FAQ/BindEditor.html[selecting an editor] in the
+// SWI-Prolog reference.
+// 
+// Now you can add a few more facts.  Try adding the following:
+// 
+// .Some more facts
+// [source,prolog]
+// -------------------------------------------------------------------------------
+// father(jake, joan).
+// mother(jane, jake).
+// -------------------------------------------------------------------------------
+// 
+// Once you have typed these in, save the file using the 'Save buffer' command
+// from the 'File' menu.    Now, you can go back to SWI-Prolog and load the
+// changes using `make.`.
+// 
+// .Loading the new facts
+// [source,prolog]
+// -------------------------------------------------------------------------------
+// ?- make.
+// % /Users/dan/comp3320/homework03/doc/facts compiled 0.00 sec, 4 clauses
+// true.
+// 
+// ?-
+// -------------------------------------------------------------------------------
+// 
+// Now, you can successfully query the updated database.
+// 
+// .Querying the updated database
+// [source,prolog]
+// -------------------------------------------------------------------------------
+// - father(joe, jake).
+// true.
+// 
+// ?- father(jake, joe).
+// false.
+// 
+// ?- mother(X, jake).
+// X = jane.
+// 
+// -------------------------------------------------------------------------------
+// 
+// You can also try a query like `father(X, Y).`, which lists all of the fathers
+// in the database.  You will notice that when you run that query it will pause
+// after the first result without returning to the `?-` prompt.  This means there
+// is more than one result.  You can press `;` to get an additional result or
+// press `.` to terminate.
+// 
+// At this point, you should have what you need to get started with your homework
+// assignment.
+// 
+// 
+// === Getting help
+// 
+// It is possible to open up the SWI-Prolog manual by issuing `help.` or
+// `help(Topic).` at the `?-` prompt where 'Topic' is an atom to look up.
+// 
+// == Additional resources
+// 
+// To help you understand Prolog better, there are a number of resources which may
+// be of interest to you:
+// 
+// Learning Prolog::
+// * http://www.learnprolognow.org/[Learn Prolog Now!] is a fairly accessible
+//   introduction to Prolog.  This does not cover predicate logic, but covers the
+//   language itself well.
+// * Chapter 16 from 'Concepts of Programming Languages' provides an introduction
+//   to predicate logic, logic programming, and Prolog in particular.
+// 
+// About SWI-Prolog::
+// * The http://www.swi-prolog.org/pldoc/refman/[SWI-Prolog reference manual]
+//   contains some introductory material as well as a complete
+//   reference for the development tools and library.
+// * The http://www.swi-prolog.org/FAQ/[SWI-Prolog] FAQ might be useful if you
+//   happen to have a frequently-asked question that is answered.
+// 
+// Last, http://www.learnprolognow.org/[SWI-Prolog maintains a page with links to
+// external resources] covering topics ranging from introductory to adavanced.

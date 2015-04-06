@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="REPL" type="ClojureREPL" factoryName="Local" singleton="true">
+    <setting name="useLein" value="true" />
+    <setting name="useClojureMain" value="false" />
+    <setting name="leinProjectName" value="edu.na.comp3320/homework05:0.1.0-SNAPSHOT" />
+    <module name="homework05" />
+    <setting name="jvmArgs" value="" />
+    <setting name="parameters" value="" />
+    <setting name="workingDir" value="$PROJECT_DIR$" />
+    <method />
+  </configuration>
+</component>

@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run assignment" type="LeiningenRunConfiguration" factoryName="Leiningen" singleton="true">
+    <LeiningenRunnerParameters>
+      <option name="goals">
+        <list>
+          <option value="run" />
+        </list>
+      </option>
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+    </LeiningenRunnerParameters>
+    <method>
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
