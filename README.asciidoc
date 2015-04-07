@@ -64,3 +64,15 @@ Ran 13 tests containing 127 assertions.
 The top line shows you the line within the assignment where the error occurred.
 Whenever you change the file, it should rerun the tests.  Just continue until
 you get to the end.
+
+
+Clojure resources
+-----------------
+
+* http://www.clojure.org/documentation[Official Clojure documentation], for this assignment check out http://clojure.org/reader[The Reader], http://clojure.org/data_structures[Data Structures], and http://clojure.org/sequences[Sequences]
+* http://clojure.org/cheatsheet[Clojure Cheat Sheet]
+* http://www.braveclojure.com/[Clojure for the Brave and True], an upcoming book that should be a beginner-friendly guide to Clojure
+* https://aphyr.com/posts/301-clojure-from-the-ground-up-welcome[Clojure from the Ground Up], another beginner-friendly guide to Clojure
+* http://www.eli.sdsu.edu/courses/fall14/cs596/index.html[Functional Programming and Design], materials from a course that teaches functional programming using Clojure 
+* http://clojurekoans.com/[Clojure Koans], Clojure exercises you can run locally
+* http://www.4clojure.com/[4Clojure], Clojure exercises on the web
