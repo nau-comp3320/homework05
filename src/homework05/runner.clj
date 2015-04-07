@@ -1,8 +1,7 @@
 (ns homework05.runner
   (:require [clojure.test :as t]
             [clojure.tools.namespace.repl :as ns-tools]
-            [hawk.core :as hawk]
-            [homework05 :as hw05]))
+            [homework05]))
 
 (defn no-errors-or-failures?
   "Returns true if there have been no errors or failures reported."
@@ -28,12 +27,12 @@
 
 (def test-vars
   "The list of the tests that should be run in order."
-  [#'hw05/primitives
-   #'hw05/lists
-   #'hw05/vectors
-   #'hw05/maps
-   #'hw05/sets
-   #'hw05/basic-sequence-operations
+  [#'homework05/primitives
+   #'homework05/lists
+   #'homework05/vectors
+   #'homework05/maps
+   #'homework05/sets
+   #'homework05/basic-sequence-operations
    #'homework05/consuming-sequences
    #'homework05/manipulating-sequences
    #'homework05/generating-sequences
@@ -52,17 +51,20 @@
         (doseq [v test-vars]
           (t/test-var v)))
       (t/do-report {:type :end-test-ns :ns (the-ns 'homework05)})
-      (t/do-report (assoc @t/*report-counters* :type :summary)))))
-
-(defn watch-callback
-  "Called from the watcher, reloads namespaces and reruns tests."
-  [_ _]
-  (binding [*ns* (find-ns 'homework05.runner)]
-    (ns-tools/refresh :after 'homework05.runner/run-tests)))
+      (t/do-report (assoc @t/*report-counters* :type :summary))
+      @t/*report-counters*)))
 
 (defn -main
   "Main entry for the program."
   [& args]
-  (run-tests)
-  (hawk/watch! [{:paths ["src/homework05.clj"]
-                 :handler watch-callback}]))
+  (let [hw-file (-> (ClassLoader/getSystemClassLoader)
+                    (.findResource "homework05.clj")
+                    (.toURI)
+                    (java.io.File.))]
+    (loop [old-modified 0]
+      (let [new-modified (.lastModified hw-file)]
+        (when (not= old-modified new-modified)
+          (binding [*ns* (find-ns 'homework05.runner)]
+            (ns-tools/refresh :after 'homework05.runner/run-tests)))
+        (Thread/sleep 100)
+        (recur new-modified)))))
