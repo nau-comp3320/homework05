@@ -1,0 +1,66 @@
+homework05: Getting to know Clojure
+===================================
+:toc: left
+:toc-title: homework05
+
+Due date:: 2015-04-17 00:00 CST
+Fork from:: https://github.com/nau-comp3320/homework05/fork
+
+
+Objectives
+----------
+
+When you have completed this homework, you should be familiar with:
+
+* Clojure’s primitives
+* Clojure’s collections
+* Making use of Clojure’s sequence abstraction
+* How to write anonymous functions in Clojure
+* Basic ideas on how to use higher order functions
+* Using map, filter, and reduce
+
+
+Grading
+-------
+
+Grading is based on the correctness of the submission.  This assignment is due
+at midnight at the end of Thursday, 17 Apr 2015.
+
+
+Getting started with Clojure
+----------------------------
+
+In order to complete this assignment, you will need to set up a Clojure
+development environment that uses Leiningen.  I also highly recommend you use
+IntelliJ IDEA with the Cursive Clojure plug-in.  I have proviced instructions
+on how to setup your environment and get started on this assignment in
+link:doc/getting-started-with-clojure.asciidoc[Getting started with Clojure]
+document.
+
+
+Procedure
+---------
+
+In this assignment, you will be editing the file at link:src/homework05.clj[].
+Throughout this file you will find explanatory text as well as numerous lines
+of the form `(is (assertion? __))`.  The goal in this exercise is to fill in
+the blanks (the `__`) with Clojure code that satisfies these asserrtions.
+
+In order to keep track of your progress, you can either use the *Run
+assignment* run configuraiton from within IntelliJ IDEA or invoke Leiningen
+directly with `lein run`.  It will show you the first error it encounters by
+printing out something like:
+
+...............................................................................
+FAIL in (primitives) (homework05.clj:25)
+integer literals
+expected: (integer? __)
+  actual: (not (integer? __))
+
+Ran 13 tests containing 127 assertions.
+1 failures, 0 errors.
+...............................................................................
+
+The top line shows you the line within the assignment where the error occurred.
+Whenever you change the file, it should rerun the tests.  Just continue until
+you get to the end.
