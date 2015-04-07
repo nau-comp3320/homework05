@@ -34,7 +34,7 @@ In order to complete this assignment, you will need to set up a Clojure
 development environment that uses Leiningen.  I also highly recommend you use
 IntelliJ IDEA with the Cursive Clojure plug-in.  I have proviced instructions
 on how to setup your environment and get started on this assignment in
-link:doc/getting-started-with-clojure.asciidoc[Getting started with Clojure]
+link:doc/getting-started-with-clojure.html[Getting started with Clojure]
 document.
 
 
