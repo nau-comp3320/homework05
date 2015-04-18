@@ -475,29 +475,26 @@
     (is (= 0 (count #{})))
 
 
-    ; Stopped here, will continue tomorrow
-
-
 
 
     ; With hash maps, ‘conj’ appends in some implementation-defined way.
     ; Naturally, you cannot add non-unique values.
     (is (= #{:a :b :c} (conj #{:a :b} :c :b)))
 
-    (is (= #{:x :y} (conj #{:y} __)))
-    (is (= __ (conj #{} 1 2 3 2 1)))
-    (is (= __ (conj #{"a" "b"} "c")))
-    (is (= #{4 5 6} (conj #{__} __ __)))
+    (is (= #{:x :y} (conj #{:y} :x)))
+    (is (= #{1 2 3} (conj #{} 1 2 3 2 1)))
+    (is (= #{"a" "b" "c"} (conj #{"a" "b"} "c")))
+    (is (= #{4 5 6} (conj #{4} 5 6)))
 
     ; As expected, the order of the elements returned from ‘seq’ returns is
     ; implementation-defined.
     (is (= '(:c :b :a) (seq #{:a :b :c})))
     ; What should the results be of calling ‘seq’ on the following?
-    (is (= __ (seq #{true})))
-    (is (= __ (seq #{})))
+    (is (= (true) (seq #{true})))
+    (is (= nil (seq #{})))
 
     ; It should be noted that sorted sets have predictable orderings.
-    (is (= __ (seq (sorted-set 5 4 3 2 1)))))
+    (is (= (1 2 3 4 5) (seq (sorted-set 5 4 3 2 1)))))
 
   (testing "set functions"
     ; To remove an element from a set, use ‘disj’ (short for disjoin).  You can
@@ -506,11 +503,11 @@
     (is (= #{:a :b} (disj #{:a :b :c :d} :d :c)))
     (is (= #{:a :b :c} (disj #{:a :b :c} :d)))
     ; Now you give it a try…
-    (is (= #{1 2 3} (disj #{1 2 3 4} __)))
-    (is (= #{1 2 3} (disj #{1 2 3 4 5} __ __)))
-    (is (= #{1 2 3} (disj #{1 2 3 4 5} __ __ __)))
-    (is (= #{:a :d} (disj __ :b :c :e)))
-    (is (= __ (disj #{\a \b \c \d} \c)))
+    (is (= #{1 2 3} (disj #{1 2 3 4} 4)))
+    (is (= #{1 2 3} (disj #{1 2 3 4 5} 4 5)))
+    (is (= #{1 2 3} (disj #{1 2 3 4 5} 4 5 6)))
+    (is (= #{:a :d} (disj #{:a :d} :b :c :e)))
+    (is (= #{\a \b \d} (disj #{\a \b \c \d} \c)))
 
     ; While not associative, you can still use ‘get’ and ‘contains?’ with sets.
     ; In the case of ‘get’, it will return the value that was equal to that
@@ -519,15 +516,15 @@
     (is (= nil (get #{:a :b :c} :d)))
     (is (= :not-found (get #{:a :b :c} :d :not-found)))
 
-    (is (= __ (get #{1 2 3 4} 3)))
-    (is (= __ (get #{1 2 3 4} 5)))
-    (is (= :not-found (get #{1 2 3 4} __ __)))
-    (is (= nil (get #{1 2 3 4} __)))
+    (is (= 3 (get #{1 2 3 4} 3)))
+    (is (= nil (get #{1 2 3 4} 5)))
+    (is (= :not-found (get #{1 2 3 4} 5 :not-found)))
+    (is (= nil (get #{1 2 3 4} 8)))
 
     ; Sets also work with ‘contains?’, returning true or false if the element
     ; is in the set
-    (is (= __ (contains? #{:a :b :c} :a)))
-    (is (= __ (contains? #{:a :b :c} :d))))
+    (is (= true (contains? #{:a :b :c} :a)))
+    (is (= false (contains? #{:a :b :c} :d))))
 
   (testing "sets as functions"
     ; As with vectors and maps, sets also behave like functions.  They are functions
@@ -535,10 +532,10 @@
     (is (= :a (#{:a :b :c} :a)))
     (is (= nil (#{:a :b :c} :d)))
 
-    (is (= __ (#{1 2 3 4} 3)))
-    (is (= __ (#{1 2 3 4} 5)))
-    (is (= nil (__ 4)))
-    (is (= 2 (#{1 2 3 4} __)))))
+    (is (= 3 (#{1 2 3 4} 3)))
+    (is (= nil (#{1 2 3 4} 5)))
+    (is (= nil (#{1 2 3} 4)))
+    (is (= 2 (#{1 2 3 4} 2)))))
 
 
 ;;;
@@ -560,20 +557,20 @@
     ; Strings are sequences of characters
     (is (= '(\c \l \o \j \u \r \e) (seq "clojure")))
 
-    (is (= __ (seq "hello")))
-    (is (= '(\g \o \o \d \b \y \e) (seq __)))
+    (is (= (\h \e \l \l \o) (seq "hello")))
+    (is (= '(\g \o \o \d \b \y \e) (seq "goodbye")))
 
     ; java-list here is an instance of a java.util.ArrayList containing the
     ; numbers 1, 2, and 3
     (is (= true (instance? java.util.ArrayList java-list)))
     (is (= false (list? java-list)))
 
-    (is (= __ (seq java-list)))
+    (is (= '(1 2 3) (seq java-list)))
 
     ; java-array is an array of Long objects containing the numbers 1, 2, and 3
     (is (= (Class/forName "[Ljava.lang.Long;") (type java-array)))
     (is (= false (list? java-array)))
-    (is (= __ (seq java-array))))
+    (is (= (1 2 3) (seq java-array))))
 
   (testing "first"
     ; The first basic sequence function is ‘first’, which returns the first
@@ -581,21 +578,21 @@
     ; sequence.
     (is (= :a (first [:a :b :c])))
 
-    (is (= __ (first '(1 2 3))))
-    (is (= __ (first [\c \b \a])))
-    (is (= __ (first (sorted-map :b 2 :a 1 :c 3))))
-    (is (= __ (first (sorted-set "c" "b" "a"))))
-    (is (= __ (first "xyz")))
-    (is (= __ (first java-list)))
-    (is (= __ (first java-array)))
+    (is (= 1 (first '(1 2 3))))
+    (is (= \c (first [\c \b \a])))
+    (is (= [:a 1] (first (sorted-map :b 2 :a 1 :c 3))))
+    (is (= "a" (first (sorted-set "c" "b" "a"))))
+    (is (= \x (first "xyz")))
+    (is (= 1 (first java-list)))
+    (is (= 1 (first java-array)))
 
     ; what happens when the argument is empty?
-    (is (= __ (first [])))
-    (is (= __ (first {})))
-    (is (= __ (first '())))
+    (is (= nil (first [])))
+    (is (= nil (first {})))
+    (is (= nil (first '())))
 
     ; what about if the argument is nil?
-    (is (= __ (first nil))))
+    (is (= nil (first nil))))
 
   (testing "rest"
     ; The second basic sequence function is ‘rest’, which returns the rest of
@@ -603,21 +600,21 @@
     ; coerce its argument into a sequence.
     (is (= '(:b :c) (rest [:a :b :c])))
 
-    (is (= __ (rest '(1 2 3))))
-    (is (= __ (rest [\c \b \a])))
-    (is (= __ (rest (sorted-map :b 2 :a 1 :c 3))))
-    (is (= __ (rest (sorted-set "c" "b" "a"))))
-    (is (= __ (rest "xyz")))
-    (is (= __ (rest java-list)))
-    (is (= __ (rest java-array)))
+    (is (= (2 3) (rest '(1 2 3))))
+    (is (= \b \a (rest [\c \b \a])))
+    (is (= ([:b 2] [:c 3]) (rest (sorted-map :b 2 :a 1 :c 3))))
+    (is (= ("b" "c") (rest (sorted-set "c" "b" "a"))))
+    (is (= (\y \z) (rest "xyz")))
+    (is (= (2 3 ) (rest java-list)))
+    (is (= (2 3) (rest java-array)))
 
     ; what happens when the argument is empty?
-    (is (= __ (rest [])))
-    (is (= __ (rest {})))
-    (is (= __ (rest '())))
+    (is (= () (rest [])))
+    (is (= () (rest {})))
+    (is (= () (rest '())))
 
     ; what about if the argument is nil?
-    (is (= __ (rest nil))))
+    (is (= () (rest nil))))
 
   (testing "cons"
     ; The last of the basic sequence functions is ‘cons’, which returns a new
@@ -626,21 +623,21 @@
     ; that this does not preserve the type argument.
     (is (= '(:a :b :c) (cons :a [:b :c])))
 
-    (is (= __ (cons 3 '(1 2))))
-    (is (= __ (cons 3 [1 2])))
-    (is (= __ (cons 3 (sorted-map :a 1 :b 2 :c 3))))
-    (is (= __ (cons 3 (sorted-set 1 2 3))))
-    (is (= __ (cons 3 "abc")))
-    (is (= __ (cons 3 java-list)))
-    (is (= __ (cons 3 java-array)))
+    (is (= (3 1 2) (cons 3 '(1 2))))
+    (is (= (3 1 2) (cons 3 [1 2])))
+    (is (= (3 [:a 1] [:b 2] [:c 3]) (cons 3 (sorted-map :a 1 :b 2 :c 3))))
+    (is (= (3 1 2 3) (cons 3 (sorted-set 1 2 3))))
+    (is (= (3 \a \b \c) (cons 3 "abc")))
+    (is (= (3 1 2 3) (cons 3 java-list)))
+    (is (= (3 1 2 3) (cons 3 java-array)))
 
     ; what happens with the first argument is empty or nil?
-    (is (= __ (cons [] [1 2 3])))
-    (is (= __ (cons nil [1 2 3])))
+    (is (= ([] 1 2 3) (cons [] [1 2 3])))
+    (is (= (nil 1 2 3) (cons nil [1 2 3])))
 
     ; what happens with the second argument is empty or nil?
-    (is (= __ (cons 1 [])))
-    (is (= __ (cons 1 nil)))))
+    (is (= (1) (cons 1 [])))
+    (is (= (1) (cons 1 nil)))))
 
 (deftest consuming-sequences
   ; While ‘first’, ‘rest’, and ‘cons’ are nice, there are many functions that
@@ -652,10 +649,10 @@
     (is (= '(1 2 3) (take 3 [1 2 3 4 5])))
     (is (= '(1) (take 3 [1])))
 
-    (is (= __ (take 2 '(1 2 3 4))))
-    (is (= __ (take 0 '(1 2 3 4))))
-    (is (= '(:a :b :c) (take 3 __)))
-    (is (= '(\a \b) (take __ (sorted-set \c \b \d \a)))))
+    (is (= (1 2) (take 2 '(1 2 3 4))))
+    (is (= () (take 0 '(1 2 3 4))))
+    (is (= '(:a :b :c) (take 3 [:a :b :c :d])))
+    (is (= '(\a \b) (take 2 (sorted-set \c \b \d \a)))))
 
   (testing "drop"
     ; Now, consider ‘drop’, which returns all but the first n items from a
@@ -663,18 +660,18 @@
     (is (= '(4 5) (drop 3 [1 2 3 4 5])))
     (is (= '() (drop 3 [1])))
 
-    (is (= __ (drop 2 '(1 2 3 4))))
-    (is (= __ (drop 0 '(1 2 3 4))))
-    (is (= '(2 3 5) (drop 3 __)))
-    (is (= '(\d) (drop __ (sorted-set \c \b \d \a)))))
+    (is (= (3 4) (drop 2 '(1 2 3 4))))
+    (is (= (1 2 3 4) (drop 0 '(1 2 3 4))))
+    (is (= '(2 3 5) (drop 3 '(0 1 4 2 3 5))))
+    (is (= '(\d) (drop 3 (sorted-set \c \b \d \a)))))
 
   (testing "nth"
     ; It is also possible to ‘nth’ for arbitrary sequences, though it could
     ; operate in linear time
     (is (= :c (nth '(:a :b :c :d) 2)))
-    (is (= __ (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) 3)))
-    (is (= [:a 1] (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) __)))
-    (is (= \j (nth "Clojure" __))))
+    (is (= [:d 4] (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) 3)))
+    (is (= [:a 1] (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) 0)))
+    (is (= \j (nth "Clojure" 3))))
 
   (testing "rand-nth"
     ; Sometimes, you just want a random value from a sequence, and ‘rand-nth’
@@ -682,8 +679,8 @@
     ; you should try out this function on the REPL.
     (is (integer? (rand-nth '(1 2 3 4 5))))
     (is (symbol? (rand-nth ['a 'b 'c 'd 'e])))
-    (is (keyword? (rand-nth __)))
-    (is (string? (rand-nth __)))))
+    (is (keyword? (rand-nth [:a :b :c :d])))
+    (is (string? (rand-nth ["cd" "css" "se"])))))
 
 (deftest manipulating-sequences
   ; Additionally, there are functions that can manipulate sequences.
@@ -691,19 +688,22 @@
     ; Sometimes, you want to remove duplicates from an arbitrary sequece.  For
     ; this, you can use ‘distinct’.
     (is (= '(1 3 4 2 5) (distinct '(1 1 3 4 1 2 3 5 2))))
-    (is (= __ (distinct "Abacadabra!")))
-    (is (= __ (distinct [4 5 2 6 2 4 7 8 1 2 9 2 5 8 2 7 6 9 2])))
-    (is (= __ (distinct [])))
-    (is (= '(3 1 2) (distinct __))))
+    (is (= (\A \b \a \c \d \r \!) (distinct "Abacadabra!")))
+    (is (= (4 5 2 6 7 8 1 9) (distinct [4 5 2 6 2 4 7 8 1 2 9 2 5 8 2 7 6 9 2])))
+    (is (= () (distinct [])))
+    (is (= '(3 1 2) (distinct '(3 1 1 2 3 2)))))
 
   (testing "sort"
     ; It is also possible to ‘sort’ the values of a sequence.  This relies on
     ; the natural ordering of the contents of the sequence.
     (is (= '(1 2 3 4 5) (sort [5 4 3 2 1])))
-    (is (= __ (sort "clojure")))
-    (is (= __ (sort "abacadabra")))
-    (is (= __ (sort ['s 'y 'm 'b 'o 'l 's])))
-    (is (= __ (sort []))))
+    (is (=  (\c \e \j \l \o \r \u) (sort "clojure")))
+    (is (= (\a \a \a \a \a \b \b \c \d \r) (sort "abacadabra")))
+    (is (= (b l m o s s y) (sort ['s 'y 'm 'b 'o 'l 's])))
+    (is (= () (sort []))))
+
+
+  ; Stopped here
 
   (testing "reverse"
     ; You can get the elements in a sequence in ‘reverse’ order.
