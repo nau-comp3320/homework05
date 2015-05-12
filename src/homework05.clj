@@ -22,75 +22,78 @@
     ; Let‘s start with simple integer literals.  In the following lines,
     ; replace the ‘__’ in each line with an integer literal.
     (is (integer? 1))
-    (is (integer? __))
-    (is (integer? __))
-    (is (integer? __))
-    (is (integer? __))
-    (is (integer? __)))
+    (is (integer? 2))
+    (is (integer? 3))
+    (is (integer? 4))
+    (is (integer? 5))
+    (is (integer? 6)))
 
   (testing "floating point literals"
     ; Now, let's try some floating point literals.
     (is (float? 1.0))
-    (is (float? __))
-    (is (float? __))
-    (is (float? __))
-    (is (float? __))
-    (is (float? __)))
+    (is (float? 2.0))
+    (is (float? 3.0))
+    (is (float? 4.0))
+    (is (float? 5.0))
+    (is (float? 6.0)))
 
   (testing "rational literals"
     ; Like Ruby, Clojure supports rational numbers, e.g. 22/7.   Create some
     ; ratios.
     (is (ratio? 22/7))
-    (is (ratio? __))
-    (is (ratio? __))
-    (is (ratio? __))
-    (is (ratio? __))
-    (is (ratio? __)))
+    (is (ratio? 22/3))
+    (is (ratio? 100/9))
+    (is (ratio? 3/2))
+    (is (ratio? 7/3))
+    (is (ratio? 4/3)))
 
   (testing "character literals"
     ; Characters are preceded by a backslash.  Try creating some characters.
     (is (char? \a))
-    (is (char? __))
-    (is (char? __))
-    (is (char? __))
-    (is (char? __))
-    (is (char? __))
+    (is (char? \b))
+    (is (char? \c))
+    (is (char? \d))
+    (is (char? \e))
+    (is (char? \f))
 
     ; Some characters are special.
-    (is (backslash? __))
-    (is (backspace? __))
-    (is (newline? __))
-    (is (return? __))
-    (is (space? __))
-    (is (tab? __)))
+    (is (backslash? \\))
+    (is (backspace? \backspace))
+    (is (newline? \newline))
+    (is (return? \return))
+    (is (space? \space))
+    (is (tab? \tab)))
 
   (testing "string literals"
     ; Strings are enclosed in double quotes (").  Create some string literals.
     (is (string? "a string"))
-    (is (string? __))
-    (is (string? __))
-    (is (string? __))
-    (is (string? __))
-    (is (string? __))
+    (is (string? "clojure and stuff"))
+    (is (string? "I <3 things"))
+    (is (string? "foo bar"))
+    (is (string? "sanity checking is for the weak!"))
+    (is (string? "rm -rfv all the things!"))
 
     ; Strings can span multiple lines.  Create one here.
-    (is (multiline-string? __))
+    (is (multiline-string? "string
+    spanning
+    multiple
+    lines"))
 
     ; You can also escape special characters in Clojure strings as you do in
     ; Java.  Create a string that contains a double quote (") and a backslash
     ; (\)
-    (is (string-with-double-quote? __))
-    (is (string-with-backslash? __)))
+    (is (string-with-double-quote? "string contains \"double quote\""))
+    (is (string-with-backslash? "string contains this thing \\")))
 
   (testing "boolean literals"
     ; Clojure also has literals for the two boolean values.
-    (is (true? __))
-    (is (false? __)))
+    (is (true? true))
+    (is (false? false)))
 
   (testing "the null literal"
     ; As in Ruby, 'nil' is the literal for a null value.  This is the same as
     ; Java‘s null.
-    (is (nil? __)))
+    (is (nil? nil)))
 
   (testing "keyword literals"
     ; Like Ruby symbols, keywords are symbolic identifiers that evaluate to
@@ -99,11 +102,11 @@
     ; what characters may show up in a keyword name.  To be safe, avoid any
     ; slashes (/), full stops (.), or additional colons.
     (is (keyword? :keyword))
-    (is (keyword? __))
-    (is (keyword? __))
-    (is (keyword? __))
-    (is (keyword? __))
-    (is (keyword? __)))
+    (is (keyword? :anotherkeyword))
+    (is (keyword? :yetanotherkeyword))
+    (is (keyword? :ohheyanotherkeyword))
+    (is (keyword? :thisseemsexcessive))
+    (is (keyword? :spoilersitisakeyword)))
 
   (testing "symbol literals"
     ; Symbols, like keywords, are symbolic identifiers.  However, unlike
@@ -112,11 +115,11 @@
     ; with a single quote (').  Like keywords, avoid any slashes, full stops,
     ; or colons in the symbol name.
     (is (symbol? 'symbol))
-    (is (symbol? ___))
-    (is (symbol? ___))
-    (is (symbol? ___))
-    (is (symbol? ___))
-    (is (symbol? ___))))
+    (is (symbol? 'symbol2))
+    (is (symbol? 'yetanothersymbol))
+    (is (symbol? 'foosymbol))
+    (is (symbol? 'barsymbol))
+    (is (symbol? 'symbolthing))))
 
 
 ;;;
@@ -142,17 +145,17 @@
     ; list itself without having Clojure try to evaluate it, prepend it with a
     ; single quote.
     (is (list? '(1 2.0 6/2)))
-    (is (list? __))
-    (is (list? __))
-    (is (list? __))
-    (is (list? __))
-    (is (list? __))
+    (is (list? '(7 8 9 10)))
+    (is (list? '("can" "you" "store" "strings")))
+    (is (list? '(8 4 1.0 2/3)))
+    (is (list? '(1 2 3 4 5 "string")))
+    (is (list? '("numbers" 1 2 3)))
 
     ; In addition to the above list literal syntax, you can also build lists
     ; using the ‘list’ function.
     (is (= '(1 2 3) (list 1 2 3)))
-    (is (= '(:a :b) (list __ __)))
-    (is (= '(__ __ __) (list "one" "two" "three"))))
+    (is (= '(:a :b) (list :a :b)))
+    (is (= '(:one :two :three) (list :one :two :three))))
 
   (testing "generic operations"
     ; All Clojure collections support a number of basic operations.  The first
@@ -160,24 +163,24 @@
     ; collection.  In general, all Clojure collections support constant-time
     ; ‘count’.
     (is (= 2 (count '(\a \b))))
-    (is (= __ (count '())))
-    (is (= __ (count '(:a :b :c))))
-    (is (= 3 (count __)))
-    (is (= 4 (__ '(1 2 3 4))))
+    (is (= 0 (count '())))
+    (is (= 3 (count '(:a :b :c))))
+    (is (= 3 (count '(1 2 3))))
+    (is (= 4 (count '(1 2 3 4))))
 
     ; The second basic operation supported by all operations is ‘conj’, short
     ; for ‘conjoin’.  ‘conj’ appends to a collection in the most natural way
     ; for that collection.  For lists, that means prepending the new value to
     ; the list.
     (is (= '(\a \b \c) (conj '(\b \c) \a)))
-    (is (= __ (conj '(1 2) 3)))
-    (is (= __ (conj '(1 2) 0)))
-    (is (= '(:a 2 3 :b) (conj __ :a)))
-    (is (= '(:a) (conj __ :a)))
-    (is (= '(:c :b :a) (conj '(:b :a) __)))
-    (is (= '(1 2 3 4) (conj __ __)))
+    (is (= '(3 1 2) (conj '(1 2) 3)))
+    (is (= '(0 1 2) (conj '(1 2) 0)))
+    (is (= '(:a 2 3 :b) (conj '(2 3 :b) :a)))
+    (is (= '(:a) (conj '() :a)))
+    (is (= '(:c :b :a) (conj '(:b :a) :c)))
+    (is (= '(1 2 3 4) (conj '(2 3 4) 1)))
     ; not that you can ‘conj’ more than one element in the same call
-    (is (= __ (conj '(3 4) 2 1)))
+    (is (= '(1 2 3 4) (conj '(3 4) 2 1)))
 
     ; Lastly, we have ‘seq’, which returns a sequence of the items in the
     ; collection.  Sequences are a very important abstraction that we will get
@@ -185,8 +188,8 @@
     ; in one important case: the empty list.
     (is (= '(1 2 3) (seq '(1 2 3))))
     (is (nil? (seq '())))
-    (is (= __ (seq '(:a :b :c))))
-    (is (= __ (seq '())))))
+    (is (= '(:a :b :c) (seq '(:a :b :c))))
+    (is (nil? (seq '())))))
 
 (deftest vectors
   ; In addition to lists, Clojure also supports vectors.  Like lists, vectors
@@ -196,39 +199,39 @@
     ; In Clojure source code, vectors are constructed by square braces with zero
     ; or more forms inside.
     (is (vector? [1 2 3]))
-    (is (vector? __))
-    (is (vector? __))
-    (is (vector? __))
-    (is (vector? __))
-    (is (vector? __))
+    (is (vector? ["string" 1 2]))
+    (is (vector? [:stuff 1 2]))
+    (is (vector? [1 3 4 '(1 2 3)]))
+    (is (vector? ["string" 1 :a]))
+    (is (vector? [:a :b :c]))
 
     ; Similarly to lists, you can build vectors using the ‘vector’ function.
     (is (= [1 2 3] (vector 1 2 3)))
-    (is (= __ (vector \a \b \c)))
-    (is (= ['a 'b 'c] (vector __ __ __))))
+    (is (= [\a \b \c] (vector \a \b \c)))
+    (is (= ['a 'b 'c] (vector 'a 'b 'c))))
 
   (testing "generic operations"
     ; Vectors support the ‘count’, ‘conj’, and ‘seq’ functions, like all
     ; collections.
     (is (= 3 (count ["a" "b" "c"])))
-    (is (= __ (count [\c \l \o \j \u \r \e])))
-    (is (= 0 (count __)))
+    (is (= 7 (count [\c \l \o \j \u \r \e])))
+    (is (= 0 (count [])))
 
     ; In the case of vectors, ‘conj’ appends to the end of the vector.
     (is (= [1 2 3] (conj [1 2] 3)))
-    (is (= [1 2] (conj [1] __)))
-    (is (= __ (conj [] 2)))
-    (is (= __ (conj ['a \b :c] 4)))
-    (is (= __ (conj [1 2] 3 4 5)))
+    (is (= [1 2] (conj [1] 2)))
+    (is (= [2] (conj [] 2)))
+    (is (= ['a \b :c 4] (conj ['a \b :c] 4)))
+    (is (= [1 2 3 4 5] (conj [1 2] 3 4 5)))
 
     ; Finally, using ‘seq’ on a vector produces something that is no longer a
     ; vector.  Nor is the result a list, but it is a sequence nonetheless.
     ; Type some vectors into the blanks.
-    (is (not (vector? (seq __))))
-    (is (not (list? (seq __))))
-    (is (seq? (seq __)))
+    (is (not (vector? (seq [1 2 3]))))
+    (is (not (list? (seq '[:a :b :c]))))
+    (is (seq? (seq [1 2 3 4])))
     ; What happens if you try to ‘seq’ an empty vector?
-    (is (nil? (seq __))))
+    (is (nil? (seq []))))
 
   (testing "equivalence of vectors with lists and sequences"
     ; Two sequential lists are considered equivalent if they have elements in
@@ -240,26 +243,26 @@
     (is (not= [1 2 3] [3 1 2]))
 
     ; Create lists equal to these vectors and vice-versa
-    (is (= __ [:a :b :c]))
-    (is (= __ []))
-    (is (= '(\a "a" :a) __))
-    (is (= '(5 4 3 2 1) __)))
+    (is (= '(:a :b :c) [:a :b :c]))
+    (is (= '() []))
+    (is (= '(\a "a" :a) [\a "a" :a]))
+    (is (= '(5 4 3 2 1) (seq [5 4 3 2 1]))))
 
   (testing "vectors as indexed collections"
     ; Due to the nature of vectors, they support some extra vector-specific
     ; operations.  The first of these is ‘nth’, which returns the value at the
     ; given index.
     (is (= 3 (nth [0 1 2 3 4 5] 3)))
-    (is (= __ (nth [:a :b :c :d :e] 2)))
-    (is (= \3 (nth [\1 \2 \3 \4] __)))
+    (is (= :c (nth [:a :b :c :d :e] 2)))
+    (is (= \3 (nth [\1 \2 \3 \4] 2)))
 
     ; Additionally, it's possible to supply a ‘not-found’ value.   What happens
     ; when trying to access an out-of-bounds value with ‘nth’?
     (is (= :not-found (nth [] 3 :not-found)))
-    (is (= __ (nth [1 2 3] 3 :not-found)))
-    (is (= __ (nth [1 2 3 4] 3 :not-found)))
-    (is (= __ (nth [:a :b :c] -1 nil)))
-    (is (= 5 (nth [1 2 3] 42 __))))
+    (is (= :not-found (nth [1 2 3] 3 :not-found)))
+    (is (= 4 (nth [1 2 3 4] 3 :not-found)))
+    (is (= nil (nth [:a :b :c] -1 nil)))
+    (is (= nil (nth [1 2 3] 42 nil))))
 
   (testing "vectors as associative collections"
     ; In Clojure, some collections are said to be associative, meaning that
@@ -271,18 +274,18 @@
     ; that key.  You can also pass a ‘not-found’ value.
     (is (= 3 (get [0 1 2 3] 3)))
     (is (= :not-found (get [0 1 2 3] 6 :not-found)))
-    (is (= __ (get [:a :b :c] 2)))
-    (is (= :foo (get [:a :b :c] __ __)))
+    (is (= :c (get [:a :b :c] 2)))
+    (is (= :foo (get [:a :b :c] 4 :foo)))
     ; note how ‘get’ differs from ‘nth’ when the index is out of bounds
-    (is (= __ (get [:a :b :c] 3))))
+    (is (= nil (get [:a :b :c] 3))))
 
   (testing "vectors as functions"
     ; One last bit before we move on from vectors: they also act as functions.
     ; You can place a vector in function call position and pass it an index to
     ; get the value at that index.
     (is (= 2 ([0 1 2 3 4 5] 2)))
-    (is (= __ ([\a \b \b \c \d] 2)))
-    (is (= :c ([:a :b :b :c :d] __)))))
+    (is (= \b ([\a \b \b \c \d] 2)))
+    (is (= :c ([:a :b :b :c :d] 3)))))
 
 (deftest maps
   ; Maps are another associative collection, similar to Ruby‘s hashes or
@@ -293,56 +296,56 @@
     ; number of forms inside.  If you like, you can use commas (,) to separate
     ; key/value pairs, but those are not necessary.
     (is (map? {:a 1 :b 2 :c 3}))
-    (is (map? __))
-    (is (map? __))
-    (is (map? __))
-    (is (map? __))
-    (is (map? __))
+    (is (map? {:a 3 :b 6 :c 5}))
+    (is (map? {:a \a :b \b :c \b}))
+    (is (map? {:a 1 :b 9 :c "test" }))
+    (is (map? {:a 8 :b \y :c "test"}))
+    (is (map? {:a 8 :b 9 :c 123}))
 
     ; Similarly to lists and vectors, you can build maps using the ‘hash-map’ function.
     (is (= {:a 1 :b 2 :c 3} (hash-map :a 1 :b 2 :c 3)))
-    (is (= __ (hash-map \a 1 \b 2 \c 3)))
-    (is (= {'a :a :b 'b} (hash-map __ __ __ __)))
+    (is (= {\a 1 \b 2 \c 3} (hash-map \a 1 \b 2 \c 3)))
+    (is (= {'a :a :b 'b} (hash-map 'a :a :b 'b)))
 
     ; Note that you can also get sorted maps using the ‘sorted-map’ function.
     ; They are not as efficient as hash maps, but are sorted.
     (is (= {"a" 1 "b" 2} (sorted-map "a" 1 "b" 2)))
-    (is (= __ (sorted-map \a \b \c \d)))
-    (is (= {1 "one" 2 "two"} __))
-    (is (= __ (sorted-map))))
+    (is (= {\a \b \c \d} (sorted-map \a \b \c \d)))
+    (is (= {1 "one" 2 "two"} (sorted-map 1 "one" 2 "two")))
+    (is (= {} (sorted-map))))
 
   (testing "generic operations"
     ; Maps support the ‘count’, ‘conj’, and ‘seq’ functions, like all
     ; collections.  Note that the count returns the number of entries in the
     ; map.
     (is (= 3 (count {1 \a 2 \b 3 \b})))
-    (is (= __ (count {:x 2 :y 3})))
-    (is (= 0 (count __)))
+    (is (= 2 (count {:x 2 :y 3})))
+    (is (= 0 (count {})))
 
     ; With hash maps, ‘conj’ appends in some implementation-defined way.  Also
     ; note that what you add to a map is a key-value pair.
     (is (= {:a 1 :b 2 :c 3} (conj {:a 1 :b 2} [:c 3])))
-    (is (= {:x 2 :y 3} (conj {:y 3} __)))
-    (is (= __ (conj {} [:foo :bar])))
-    (is (= __ (conj {:key1 "one" :key2 "two"} [:key3 "three"])))
-    (is (= __ (conj {:a \a :b \b} [:c \c] [:d \d])))
+    (is (= {:x 2 :y 3} (conj {:y 3} {:x 2})))
+    (is (= {:foo :bar} (conj {} [:foo :bar])))
+    (is (= {:key1 "one" :key2 "two" :key3 "three"} (conj {:key1 "one" :key2 "two"} [:key3 "three"])))
+    (is (= {:a \a :b \b :c \c :d \d} (conj {:a \a :b \b} [:c \c] [:d \d])))
     ; what happens when you try add an item with the same key to a map?
-    (is (= __ (conj {:a 1 :b 2} [:a 3])))
+    (is (= {:b 2 :a 3} (conj {:a 1 :b 2} [:a 3])))
 
     ; As expected, ‘seq’ returns a sequence of key-value pairs, but the order
     ; is implementation-defined.
     (is (= '([:c 3] [:b 2] [:a 1]) (seq {:a 1 :b 2 :c 3})))
     ; What should the results be of calling ‘seq’ on the following?
-    (is (= __ (seq {:key :value})))
-    (is (= __ (seq {})))
+    (is (= '([:key :value]) (seq {:key :value})))
+    (is (= nil (seq {})))
 
     ; It should be noted that sorted maps have predictable orderings.
-    (is (= __ (seq (sorted-map :b 2 :a 1 :c 3))))
+    (is (= '([:a 1] [:b 2] [:c 3]) (seq (sorted-map :b 2 :a 1 :c 3))))
 
     ; It is possible to query if a map is sorted or not
-    (is (= __ (sorted? #{:a 1 :b2})))
-    (is (= __ (sorted? (hash-map :a 1 :b 2))))
-    (is (= __ (sorted? (sorted-map :a 1 :b 2)))))
+    (is (= false (sorted? #{:a 1 :b 2})))
+    (is (= false (sorted? (hash-map :a 1 :b 2))))
+    (is (= true (sorted? (sorted-map :a 1 :b 2)))))
 
   (testing "merging maps"
     ; In addition to using ‘conj’ to add entries to maps, you can also ‘merge’
@@ -351,9 +354,9 @@
                                    {:b 2}
                                    {:c 3})))
     ; Now you give it a try…
-    (is (= {:a 1} (merge {} __)))
-    (is (= {:a 1} (merge __ {})))
-    (is (= {:a 1} (merge {:a 2} __))))
+    (is (= {:a 1} (merge {} {:a 1})))
+    (is (= {:a 1} (merge {:a 1} {})))
+    (is (= {:a 1} (merge {:a 2} {:a 1}))))
 
   (testing "maps as associative collections"
     ; As with vectors, maps are associative collections.  Of course, they are
@@ -362,29 +365,29 @@
     (is (= 3 (get {:a 1 :b 2 :c 3} :c)))
     (is (= :not-found (get {:a 1 :b 2} :c :not-found)))
 
-    (is (= __ (get {:a 1 :b 2 :c 3} :b)))
-    (is (= :foo (get {:a 1 :b 2 :c 3} __ __)))
+    (is (= 2 (get {:a 1 :b 2 :c 3} :b)))
+    (is (= :foo (get {:a 1 :b 2 :c 3} :d :foo)))
     ; What do you get when you when you try to get a value that is not in a map
     ; and you do not provide a ‘not-found’ argument
-    (is (= __ (get {:a 1 :b 2 :c 3} :d)))
+    (is (= nil (get {:a 1 :b 2 :c 3} :d)))
 
     ; Note that it is OK to have nil as a key or a value
-    (is (= __ (get {nil :a-val} nil)))
-    (is (= __ (get {:key nil} :key :not-found)))
+    (is (= :a-val (get {nil :a-val} nil)))
+    (is (= nil (get {:key nil} :key :not-found)))
 
     ; Beyond ‘get’, you can also check to see if a map contains a particular
     ; key using ‘contains?’.
     (is (contains? {:a 1 :b 2} :a))
     (is (not (contains? {:a 1 :b 2} :c)))
 
-    (is (= true (contains? {1 :a 2 :b :c 3} __)))
-    (is (= __ (contains? {1 :a 2 :b :c 3} :d)))
+    (is (= false (contains? {1 :a 2 :b :c 3} :b)))
+    (is (= false (contains? {1 :a 2 :b :c 3} :d)))
 
     ; A common mistake is try to use ‘contains?’ on non-associative
     ; collections.  It works on vectors, but not in the way you intuitively
     ; expect.
-    (is (= __ (contains? [5 4 3] 3)))
-    (is (= __ (contains? [5 4 3] 1)))
+    (is (= false (contains? [5 4 3] 3)))
+    (is (= true (contains? [5 4 3] 1)))
 
     ; In addition to ‘conj’, you can ‘assoc’ (short for associate) values into
     ; maps.  This is a more natural way to do it.  You can also do more than
@@ -392,10 +395,10 @@
     (is (= {:a 1 :b 2} (assoc {:a 1} :b 2)))
     (is (= {:a 1 :b 2} (assoc {} :a 1 :b 2)))
 
-    (is (= {:a "a" :b 2} (assoc {:a "a"} :b __)))
-    (is (= {:a "a" :b "b"} (assoc {:a "a"} __ "b")))
-    (is (= {:key :value} (assoc __ :key :value)))
-    (is (= {:a \a :b \b} (assoc {:a 1 :b 2} __ __ __ __)))
+    (is (= {:a "a" :b 2} (assoc {:a "a"} :b 2)))
+    (is (= {:a "a" :b "b"} (assoc {:a "a"} :b "b")))
+    (is (= {:key :value} (assoc {} :key :value)))
+    (is (= {:a \a :b \b} (assoc {:a 1 :b 2} :a \a :b \b)))
 
     ; The reverse operation to ‘assoc’ is ‘dissoc’ (short for dissociate).
     (is (= {:b 2} (dissoc {:a 1 :b 2} :a)))
@@ -403,18 +406,19 @@
     ; note that dissociating a key that is not there is a no-op
     (is (= {:a 1 :b 2} (dissoc {:a 1 :b 2} :c)))
 
-    (is (= __ (dissoc {\a 1 \b 2 \c 3} \a)))
-    (is (= __ (dissoc {\a 1 \b 2 \c 3} \d)))
-    (is (= {:key1 1 :key3 3} (dissoc __ :key2)))
-    (is (= {:1 1 :3 3} (dissoc {:1 1 :2 2 :3 3 :4 4 :5 5} __ __ __)))
+    (is (= {\b 2 \c 3} (dissoc {\a 1 \b 2 \c 3} \a)))
+    (is (= {\a 1 \b 2 \c 3} (dissoc {\a 1 \b 2 \c 3} \d)))
+    (is (= {:key1 1 :key3 3} (dissoc {:key1 1 :key2 3 :key3 3} :key2)))
+    (is (= {:1 1 :3 3} (dissoc {:1 1 :2 2 :3 3 :4 4 :5 5} :2 :4 :5)))
 
     ; Finally, you can use ‘keys’ and ‘vals’ to get the keys and values of
     ; the map, respectively.
     (is (= [:a :b :c] (keys (sorted-map :a 1 :b 2 :c 3))))
     (is (= [1 2 3] (vals (sorted-map :a 1 :b 2 :c 3))))
 
-    (is (= [\1 \2 \3] (vals __)))
-    (is (= ["one" "three" "two"] (keys __))))
+    (is (= [\1 \2 \3] (vals (sorted-map :a \1 :b \2 :c \3))))
+    (is (= ["one" "three" "two"] (keys (sorted-map "one" 1 "two" 2 "three" 4))))
+    )
 
   (testing "maps as functions"
     ; As with vectors, maps can also behave like functions.  They are functions
@@ -423,12 +427,12 @@
     (is (= nil ({:a 1 :b 2 :c 3} :d)))
     (is (= :not-found ({:a 1 :b 2 :c 3} :d :not-found)))
 
-    (is (= __ ({"one" \a "two" \b "three" \c} "two")))
-    (is (= __ ({"one" \a "two" \b "three" \c} "four")))
-    (is (= __ ({"one" \a "two" \b "three" \c} "four" \d)))
-    (is (= :four (__ "four")))
-    (is (= :woo! ({:a :woo!} __ :whee!)))
-    (is (= :whee! ({} __ :whee!)))))
+    (is (= \b ({"one" \a "two" \b "three" \c} "two")))
+    (is (= nil ({"one" \a "two" \b "three" \c} "four")))
+    (is (= \d ({"one" \a "two" \b "three" \c} "four" \d)))
+    (is (= "four" ({:four "four"} :four)))
+    (is (= :woo! ({:a :woo!} :a :whee!)))
+    (is (= :whee! ({} :a :whee!)))))
 
 (deftest sets
   ; The last data type we will cover are sets, which are collections of unique
@@ -436,61 +440,61 @@
   (testing "constructing sets"
     ; The reader notation for creating a set is ‘#{}’.
     (is (set? #{:a :b :c}))
-    (is (set? __))
-    (is (set? __))
-    (is (set? __))
-    (is (set? __))
-    (is (set? __))
+    (is (set? #{:b :c :d}))
+    (is (set? #{\a \b \c}))
+    (is (set? #{\b \c \d}))
+    (is (set? #{"string" :a :b}))
+    (is (set? #{:a :c :d}))
 
     ; You can also use the ‘hash-set’ function
     (is (= #{:a :b :c} (hash-set :a :b :c)))
-    (is (= __ (hash-set)))
-    (is (= #{1 2 3 4 5} (hash-set __ __ __ __ __ __)))
+    (is (= #{} (hash-set)))
+    (is (= #{1 2 3 4 5} (hash-set 1 2 3 4 5)))
 
     ; To create a sorted set, use the ‘sorted-set’ function
     (is (= #{"a" "b" "c" "d"} (sorted-set "a" "b" "c" "d")))
-    (is (= __ (sorted-set \a \b \c \d)))
-    (is (= #{:a :b :c} __))
+    (is (= #{\a \b \c \d} (sorted-set \a \b \c \d)))
+    (is (= #{:a :b :c} (sorted-set :a :b :c)))
 
     ; Again, you can query to see if a particular set is sorted or not.
-    (is (= __ (sorted? #{1 2 3})))
-    (is (= __ (sorted? (hash-set 1 2 3))))
-    (is (= __ (sorted? (sorted-set 1 2 3))))
+    (is (= false (sorted? #{1 2 3})))
+    (is (= false (sorted? (hash-set 1 2 3))))
+    (is (= true (sorted? (sorted-set 1 2 3))))
 
     ; Finally, you can create sets from other collections using the ‘set’
     ; function.
     (is (= #{1 2} (set [1 2 2 1]) (set '(1 1 2 2))))
     (is (= #{[:a 1] [:b 2]} (set {:a 1 :b 2})))
-    (is (= __ (set '())))
-    (is (= __ (set [\a \b \c \d])))
-    (is (= __ (set [\p \r \o \g \r \a \m \m \i \n \g])))
-    (is (= #{[1 \a] [2 \b] [3 \c]} (set __))))
+    (is (= #{} (set '())))
+    (is (= #{\a \b \c \d} (set [\a \b \c \d])))
+    (is (= #{\p \r \o \g \a \m \i \n} (set [\p \r \o \g \r \a \m \m \i \n \g])))
+    (is (= #{[1 \a] [2 \b] [3 \c]} (set {1 \a 2 \b 3 \c}))))
 
   (testing "generic operations"
     ; Sets support the ‘count’, ‘conj’, and ‘seq’ functions, like all
     ; collections.
     (is (= 3 (count #{1 2 3})))
-    (is (= __ (count #{:x :y})))
-    (is (= 0 (count __)))
+    (is (= 2 (count #{:x :y})))
+    (is (= 0 (count #{})))
 
     ; With hash maps, ‘conj’ appends in some implementation-defined way.
     ; Naturally, you cannot add non-unique values.
     (is (= #{:a :b :c} (conj #{:a :b} :c :b)))
 
-    (is (= #{:x :y} (conj #{:y} __)))
-    (is (= __ (conj #{} 1 2 3 2 1)))
-    (is (= __ (conj #{"a" "b"} "c")))
-    (is (= #{4 5 6} (conj #{__} __ __)))
+    (is (= #{:x :y} (conj #{:y} :x)))
+    (is (= #{1 2 3} (conj #{} 1 2 3 2 1)))
+    (is (= #{"a" "b" "c"} (conj #{"a" "b"} "c")))
+    (is (= #{4 5 6} (conj #{4} 5 6)))
 
     ; As expected, the order of the elements returned from ‘seq’ returns is
     ; implementation-defined.
     (is (= '(:c :b :a) (seq #{:a :b :c})))
     ; What should the results be of calling ‘seq’ on the following?
-    (is (= __ (seq #{true})))
-    (is (= __ (seq #{})))
+    (is (= '(true) (seq #{true})))
+    (is (= nil (seq #{})))
 
     ; It should be noted that sorted sets have predictable orderings.
-    (is (= __ (seq (sorted-set 5 4 3 2 1)))))
+    (is (= '(1 2 3 4 5) (seq (sorted-set 5 4 3 2 1)))))
 
   (testing "set functions"
     ; To remove an element from a set, use ‘disj’ (short for disjoin).  You can
@@ -499,11 +503,11 @@
     (is (= #{:a :b} (disj #{:a :b :c :d} :d :c)))
     (is (= #{:a :b :c} (disj #{:a :b :c} :d)))
     ; Now you give it a try…
-    (is (= #{1 2 3} (disj #{1 2 3 4} __)))
-    (is (= #{1 2 3} (disj #{1 2 3 4 5} __ __)))
-    (is (= #{1 2 3} (disj #{1 2 3 4 5} __ __ __)))
-    (is (= #{:a :d} (disj __ :b :c :e)))
-    (is (= __ (disj #{\a \b \c \d} \c)))
+    (is (= #{1 2 3} (disj #{1 2 3 4} 4)))
+    (is (= #{1 2 3} (disj #{1 2 3 4 5} 4 5)))
+    (is (= #{1 2 3} (disj #{1 2 3 4 5} 4 5 6)))
+    (is (= #{:a :d} (disj #{:a :b :c :d :e} :b :c :e)))
+    (is (= #{\a \b \d} (disj #{\a \b \c \d} \c)))
 
     ; While not associative, you can still use ‘get’ and ‘contains?’ with sets.
     ; In the case of ‘get’, it will return the value that was equal to that
@@ -512,15 +516,15 @@
     (is (= nil (get #{:a :b :c} :d)))
     (is (= :not-found (get #{:a :b :c} :d :not-found)))
 
-    (is (= __ (get #{1 2 3 4} 3)))
-    (is (= __ (get #{1 2 3 4} 5)))
-    (is (= :not-found (get #{1 2 3 4} __ __)))
-    (is (= nil (get #{1 2 3 4} __)))
+    (is (= 3 (get #{1 2 3 4} 3)))
+    (is (= nil (get #{1 2 3 4} 5)))
+    (is (= :not-found (get #{1 2 3 4} 5 :not-found)))
+    (is (= nil (get #{1 2 3 4} 5)))
 
     ; Sets also work with ‘contains?’, returning true or false if the element
     ; is in the set
-    (is (= __ (contains? #{:a :b :c} :a)))
-    (is (= __ (contains? #{:a :b :c} :d))))
+    (is (= true (contains? #{:a :b :c} :a)))
+    (is (= false (contains? #{:a :b :c} :d))))
 
   (testing "sets as functions"
     ; As with vectors and maps, sets also behave like functions.  They are functions
@@ -528,10 +532,10 @@
     (is (= :a (#{:a :b :c} :a)))
     (is (= nil (#{:a :b :c} :d)))
 
-    (is (= __ (#{1 2 3 4} 3)))
-    (is (= __ (#{1 2 3 4} 5)))
-    (is (= nil (__ 4)))
-    (is (= 2 (#{1 2 3 4} __)))))
+    (is (= 3 (#{1 2 3 4} 3)))
+    (is (= nil (#{1 2 3 4} 5)))
+    (is (= nil (#{1 2 3} 4)))
+    (is (= 2 (#{1 2 3 4} 2)))))
 
 
 ;;;
@@ -553,20 +557,20 @@
     ; Strings are sequences of characters
     (is (= '(\c \l \o \j \u \r \e) (seq "clojure")))
 
-    (is (= __ (seq "hello")))
-    (is (= '(\g \o \o \d \b \y \e) (seq __)))
+    (is (= '(\h \e \l \l \o) (seq "hello")))
+    (is (= '(\g \o \o \d \b \y \e) (seq "goodbye")))
 
     ; java-list here is an instance of a java.util.ArrayList containing the
     ; numbers 1, 2, and 3
     (is (= true (instance? java.util.ArrayList java-list)))
     (is (= false (list? java-list)))
 
-    (is (= __ (seq java-list)))
+    (is (= '(1 2 3) (seq java-list)))
 
     ; java-array is an array of Long objects containing the numbers 1, 2, and 3
     (is (= (Class/forName "[Ljava.lang.Long;") (type java-array)))
     (is (= false (list? java-array)))
-    (is (= __ (seq java-array))))
+    (is (= '(1 2 3) (seq java-array))))
 
   (testing "first"
     ; The first basic sequence function is ‘first’, which returns the first
@@ -574,21 +578,21 @@
     ; sequence.
     (is (= :a (first [:a :b :c])))
 
-    (is (= __ (first '(1 2 3))))
-    (is (= __ (first [\c \b \a])))
-    (is (= __ (first (sorted-map :b 2 :a 1 :c 3))))
-    (is (= __ (first (sorted-set "c" "b" "a"))))
-    (is (= __ (first "xyz")))
-    (is (= __ (first java-list)))
-    (is (= __ (first java-array)))
+    (is (= 1 (first '(1 2 3))))
+    (is (= \c (first [\c \b \a])))
+    (is (= [:a 1] (first (sorted-map :b 2 :a 1 :c 3))))
+    (is (= "a" (first (sorted-set "c" "b" "a"))))
+    (is (= \x (first "xyz")))
+    (is (= 1 (first java-list)))
+    (is (= 1 (first java-array)))
 
     ; what happens when the argument is empty?
-    (is (= __ (first [])))
-    (is (= __ (first {})))
-    (is (= __ (first '())))
+    (is (= nil (first [])))
+    (is (= nil (first {})))
+    (is (= nil (first '())))
 
     ; what about if the argument is nil?
-    (is (= __ (first nil))))
+    (is (= nil (first nil))))
 
   (testing "rest"
     ; The second basic sequence function is ‘rest’, which returns the rest of
@@ -596,21 +600,21 @@
     ; coerce its argument into a sequence.
     (is (= '(:b :c) (rest [:a :b :c])))
 
-    (is (= __ (rest '(1 2 3))))
-    (is (= __ (rest [\c \b \a])))
-    (is (= __ (rest (sorted-map :b 2 :a 1 :c 3))))
-    (is (= __ (rest (sorted-set "c" "b" "a"))))
-    (is (= __ (rest "xyz")))
-    (is (= __ (rest java-list)))
-    (is (= __ (rest java-array)))
+    (is (= '(2 3) (rest '(1 2 3))))
+    (is (= [\b \a] (rest [\c \b \a])))
+    (is (= '([:b 2] [:c 3]) (rest (sorted-map :b 2 :a 1 :c 3))))
+    (is (= '("b" "c") (rest (sorted-set "c" "b" "a"))))
+    (is (= '(\y \z) (rest "xyz")))
+    (is (= '(2 3) (rest java-list)))
+    (is (= '(2 3) (rest java-array)))
 
     ; what happens when the argument is empty?
-    (is (= __ (rest [])))
-    (is (= __ (rest {})))
-    (is (= __ (rest '())))
+    (is (= '() (rest [])))
+    (is (= '() (rest {})))
+    (is (= '() (rest '())))
 
     ; what about if the argument is nil?
-    (is (= __ (rest nil))))
+    (is (= (rest nil))))
 
   (testing "cons"
     ; The last of the basic sequence functions is ‘cons’, which returns a new
@@ -619,21 +623,21 @@
     ; that this does not preserve the type argument.
     (is (= '(:a :b :c) (cons :a [:b :c])))
 
-    (is (= __ (cons 3 '(1 2))))
-    (is (= __ (cons 3 [1 2])))
-    (is (= __ (cons 3 (sorted-map :a 1 :b 2 :c 3))))
-    (is (= __ (cons 3 (sorted-set 1 2 3))))
-    (is (= __ (cons 3 "abc")))
-    (is (= __ (cons 3 java-list)))
-    (is (= __ (cons 3 java-array)))
+    (is (= '(3 1 2) (cons 3 '(1 2))))
+    (is (= '(3 1 2) (cons 3 [1 2])))
+    (is (= '(3 [:a 1] [:b 2] [:c 3]) (cons 3 (sorted-map :a 1 :b 2 :c 3))))
+    (is (= '(3 1 2 3) (cons 3 (sorted-set 1 2 3))))
+    (is (= '(3 \a \b \c) (cons 3 "abc")))
+    (is (= '(3 1 2 3) (cons 3 java-list)))
+    (is (=  '(3 1 2 3) (cons 3 java-array)))
 
     ; what happens with the first argument is empty or nil?
-    (is (= __ (cons [] [1 2 3])))
-    (is (= __ (cons nil [1 2 3])))
+    (is (= '([] 1 2 3) (cons [] [1 2 3])))
+    (is (= '(nil 1 2 3) (cons nil [1 2 3])))
 
     ; what happens with the second argument is empty or nil?
-    (is (= __ (cons 1 [])))
-    (is (= __ (cons 1 nil)))))
+    (is (= '(1) (cons 1 [])))
+    (is (= '(1) (cons 1 nil)))))
 
 (deftest consuming-sequences
   ; While ‘first’, ‘rest’, and ‘cons’ are nice, there are many functions that
@@ -645,10 +649,10 @@
     (is (= '(1 2 3) (take 3 [1 2 3 4 5])))
     (is (= '(1) (take 3 [1])))
 
-    (is (= __ (take 2 '(1 2 3 4))))
-    (is (= __ (take 0 '(1 2 3 4))))
-    (is (= '(:a :b :c) (take 3 __)))
-    (is (= '(\a \b) (take __ (sorted-set \c \b \d \a)))))
+    (is (= '(1 2) (take 2 '(1 2 3 4))))
+    (is (= '() (take 0 '(1 2 3 4))))
+    (is (= '(:a :b :c) (take 3 '(:a :b :c :d))))
+    (is (= '(\a \b) (take 2 (sorted-set \c \b \d \a)))))
 
   (testing "drop"
     ; Now, consider ‘drop’, which returns all but the first n items from a
@@ -656,18 +660,18 @@
     (is (= '(4 5) (drop 3 [1 2 3 4 5])))
     (is (= '() (drop 3 [1])))
 
-    (is (= __ (drop 2 '(1 2 3 4))))
-    (is (= __ (drop 0 '(1 2 3 4))))
-    (is (= '(2 3 5) (drop 3 __)))
-    (is (= '(\d) (drop __ (sorted-set \c \b \d \a)))))
+    (is (= '(3 4) (drop 2 '(1 2 3 4))))
+    (is (= '(1 2 3 4) (drop 0 '(1 2 3 4))))
+    (is (= '(2 3 5) (drop 1 '(1 2 3 5))))
+    (is (= '(\d) (drop 3 (sorted-set \c \b \d \a)))))
 
   (testing "nth"
     ; It is also possible to ‘nth’ for arbitrary sequences, though it could
     ; operate in linear time
     (is (= :c (nth '(:a :b :c :d) 2)))
-    (is (= __ (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) 3)))
-    (is (= [:a 1] (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) __)))
-    (is (= \j (nth "Clojure" __))))
+    (is (= [:d 4] (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) 3)))
+    (is (= [:a 1] (nth (seq (sorted-map :a 1 :b 2 :c 3 :d 4)) 0)))
+    (is (= \j (nth "Clojure" 3))))
 
   (testing "rand-nth"
     ; Sometimes, you just want a random value from a sequence, and ‘rand-nth’
@@ -675,8 +679,8 @@
     ; you should try out this function on the REPL.
     (is (integer? (rand-nth '(1 2 3 4 5))))
     (is (symbol? (rand-nth ['a 'b 'c 'd 'e])))
-    (is (keyword? (rand-nth __)))
-    (is (string? (rand-nth __)))))
+    (is (keyword? (rand-nth [:a :b :c])))
+    (is (string? (rand-nth '("string" "thing"))))))
 
 (deftest manipulating-sequences
   ; Additionally, there are functions that can manipulate sequences.
@@ -684,34 +688,34 @@
     ; Sometimes, you want to remove duplicates from an arbitrary sequece.  For
     ; this, you can use ‘distinct’.
     (is (= '(1 3 4 2 5) (distinct '(1 1 3 4 1 2 3 5 2))))
-    (is (= __ (distinct "Abacadabra!")))
-    (is (= __ (distinct [4 5 2 6 2 4 7 8 1 2 9 2 5 8 2 7 6 9 2])))
-    (is (= __ (distinct [])))
-    (is (= '(3 1 2) (distinct __))))
+    (is (= '(\A \b \a \c \d \r \!) (distinct "Abacadabra!")))
+    (is (= '(4 5 2 6 7 8 1 9) (distinct [4 5 2 6 2 4 7 8 1 2 9 2 5 8 2 7 6 9 2])))
+    (is (= '() (distinct [])))
+    (is (= '(3 1 2) (distinct [3 3 1 1 2 2]))))
 
   (testing "sort"
     ; It is also possible to ‘sort’ the values of a sequence.  This relies on
     ; the natural ordering of the contents of the sequence.
     (is (= '(1 2 3 4 5) (sort [5 4 3 2 1])))
-    (is (= __ (sort "clojure")))
-    (is (= __ (sort "abacadabra")))
-    (is (= __ (sort ['s 'y 'm 'b 'o 'l 's])))
-    (is (= __ (sort []))))
+    (is (= '(\c \e \j \l \o \r \u ) (sort "clojure")))
+    (is (= '(\a \a \a \a \a \b \b \c \d \r) (sort "abacadabra")))
+    (is (= '(b l m o s s y) (sort ['s 'y 'm 'b 'o 'l 's])))
+    (is (= '() (sort []))))
 
   (testing "reverse"
     ; You can get the elements in a sequence in ‘reverse’ order.
     (is (= '(5 4 3 2 1) (reverse [1 2 3 4 5])))
-    (is (= __ (reverse '(\a \b \c \d \e))))
-    (is (= __ (reverse (sorted-map :a 1 :b 2 :c 3))))
-    (is (= '(:c :b :a) (reverse __))))
+    (is (= '(\e \d \c \b \a) (reverse '(\a \b \c \d \e))))
+    (is (= '([:c 3] [:b 2] [:a 1]) (reverse (sorted-map :a 1 :b 2 :c 3))))
+    (is (= '(:c :b :a) (reverse '(:a :b :c)))))
 
   (testing "flatten"
     ; If an input sequence has nested sequences, it is possible to ‘flatten’ them.
     (is (= '(1 2 3 4 5) (flatten [1 [2 3] '([[4] 5])])))
-    (is (= __ (flatten '(1 2 3 4))))
-    (is (= __ (flatten '(1 [2 3] 4))))
-    (is (= __ (flatten '([([])]))))
-    (is (= __ (flatten nil))))
+    (is (= '(1 2 3 4) (flatten '(1 2 3 4))))
+    (is (= '(1 2 3 4) (flatten '(1 [2 3] 4))))
+    (is (= '() (flatten '([([])]))))
+    (is (= '() (flatten nil))))
 
   (testing "shuffle"
     ; You can get a random reordering of a sequence by using ‘shuffle’.  Note
@@ -729,9 +733,9 @@
     ; a single sequence.  ‘concat’ is the way you do that.
     (is (= '(1 2 3 4 5 6) (concat [1 2 3] [4 5 6])))
     (is (= '(1 2 3 4 5 6) (concat [1 2] [3] [4] [5 6])))
-    (is (= __ (concat '(1) [2] [3])))
-    (is (= __ (concat '(1) nil [2] '() [3])))
-    (is (= __ (concat))))
+    (is (= '(1 2 3) (concat '(1) [2] [3])))
+    (is (= '(1 2 3) (concat '(1) nil [2] '() [3])))
+    (is (= '() (concat))))
 
   (testing "interleave"
     ; It is also possible to mix sequences together.  Take ‘interleave’ as an
@@ -740,22 +744,22 @@
     (is (= '(:a \a a :b \b b :c \c c) (interleave [:a :b :c]
                                                   [\a \b \c]
                                                   ['a 'b 'c])))
-    (is (= __ (interleave (sorted-map :a 1 :b 2 :c 3))))
-    (is (= __ (interleave (sorted-map :a 1 :b 2 :c 3)
+    (is (= '([:a 1] [:b 2] [:c 3]) (interleave (sorted-map :a 1 :b 2 :c 3))))
+    (is (= '([:a 1] 4 [:b 2] 5 [:c 3] 6) (interleave (sorted-map :a 1 :b 2 :c 3)
                           (sorted-set 4 5 6))))
-    (is (= __ (interleave [1 2 3]
+    (is (= '(1 \h 2 \e 3 \l) (interleave [1 2 3]
                           "hello")))
-    (is (= __ (interleave [] ""))))
+    (is (= '() (interleave [] ""))))
 
   (testing "interpose"
     ; Sometimes, it is useful to create a new sequence by inserting a new item
     ; in between each item in an input sequence.  ‘interpose’ accomplishes this
     ; task.
     (is (= '(:a 1 :b 1 :c) (interpose 1 [:a :b :c])))
-    (is (= __ (interpose \, "abcd")))
-    (is (= __ (interpose :foo [])))
-    (is (= __ (interpose nil [1 2 3])))
-    (is (= __ (interpose [1 2 3] nil))))
+    (is (= '(\a \, \b \, \c \, \d) (interpose \, "abcd")))
+    (is (= '() (interpose :foo [])))
+    (is (= '(1 nil 2 nil 3) (interpose nil [1 2 3])))
+    (is (= '() (interpose [1 2 3] nil))))
 
   (testing "cycle"
     ; At other times, it is quite useful to generate an infinite sequcence from
@@ -763,49 +767,49 @@
     ; over and over again.  Note that we use ‘take’ because otherwise we would
     ; be tyring to get every item from an infinite sequence.
     (is (= '(1 2 3 1 2 3 1 2 3 1) (take 10 (cycle [1 2 3]))))
-    (is (= __ (take 5 (cycle (sorted-set :a :b)))))
-    (is (= __ (take 0 (cycle (sorted-set :a :b)))))
-    (is (= __ (take 2 (cycle (sorted-map :a 1 :b 2 :c 3 :d 4)))))
-    (is (= __ (take 6 (cycle "abc")))))
+    (is (= '(:a :b :a :b :a) (take 5 (cycle (sorted-set :a :b)))))
+    (is (= '() (take 0 (cycle (sorted-set :a :b)))))
+    (is (= '([:a 1] [:b 2]) (take 2 (cycle (sorted-map :a 1 :b 2 :c 3 :d 4)))))
+    (is (= '(\a \b \c \a \b \c) (take 6 (cycle "abc")))))
 
   (testing "range"
     ; Sometimes you need to ‘create’ a range of integers.  The no-argument
     ; version generates an infinite sequence of integers starting from zero.
     (is (= '(0 1 2 3 4) (take 5 (range))))
-    (is (= __ (take 3 (drop 2 (range)))))
+    (is (= '(2 3 4)  (take 3 (drop 2 (range)))))
 
     ; The one-argument version defines the end of the sequence.
     (is (= '(0 1 2 3 4) (range 5)))
-    (is (= '(0 1 2) (range __)))
-    (is (= __ (range 10)))
-    (is (= __ (range 0)))
-    (is (= __ (range -2)))
+    (is (= '(0 1 2) (range 3)))
+    (is (= '(0 1 2 3 4 5 6 7 8 9) (range 10)))
+    (is (= '() (range 0)))
+    (is (= '() (range -2)))
 
     ; The two-argument version defines both a start and an end.
     (is (= '(1 2 3) (range 1 4)))
-    (is (= __ (range 5 10)))
-    (is (= '(10 11 12) (range __ __)))
-    (is (= __ (range 10 0)))
+    (is (= '(5 6 7 8 9) (range 5 10)))
+    (is (= '(10 11 12) (range 10 13)))
+    (is (= '() (range 10 0)))
 
     ; The three-argument version defines a start, a stop, and a step
     (is (= '(2 4 6) (range 2 7 2)))
-    (is (= __ (range 0 10 3)))
-    (is (= __ (range 0 10 30)))
-    (is (= __ (range 10 0 30)))
-    (is (= __ (range 10 0 -1)))
-    (is (= '(15 10 5 0) (range __ __ __))))
+    (is (= '(0 3 6 9) (range 0 10 3)))
+    (is (= '(0) (range 0 10 30)))
+    (is (= '() (range 10 0 30)))
+    (is (= '(10 9 8 7 6 5 4 3 2 1) (range 10 0 -1)))
+    (is (= '(15 10 5 0) (range 15 -1 -5))))
 
   (testing "repeat"
     ; Occasionally, you will just need a sequence of the same constant over and
     ; over again.  ‘repeat’ is helpful here.  The no-argument version returns
     ; an infinite sequence.
     (is (= '(1 1 1 1) (take 4 (repeat 1))))
-    (is (= __ (take 3 (repeat []))))
+    (is (= '([] [] []) (take 3 (repeat []))))
 
     ; There is a one-argument version that returns a finite sequence.
     (is (= '(\a \a \a) (repeat 3 \a)))
-    (is (= __ (repeat 4 :foo)))
-    (is (= '("a" "a" "a" "a") (repeat __ __)))))
+    (is (= '(:foo :foo :foo :foo) (repeat 4 :foo)))
+    (is (= '("a" "a" "a" "a") (repeat 4 "a")))))
 
 (deftest creating-collections-from-sequences
   ; There are a number of ways you can consume a sequence to create a
@@ -815,19 +819,20 @@
     ; collection.  For this, you can use ‘into’.  Note that this function uses
     ; ‘conj’ for adding elements to a collections.
     (is (= [1 2 3] (into [] '(1 2 3))))
-    (is (= __ (into '() [1 2 3])))
-    (is (= __ (into '(:a :b) [])))
-    (is (= __ (into (sorted-set :a :b) [:b :a :c])))
-    (is (= __ (into {} [[:a 1] [:b 2]]))))
+    (is (= '(3 2 1) (into '() [1 2 3])))
+    (is (= [:a :b] (into '(:a :b) [])))
+    (is (= #{:a :b :c} (into (sorted-set :a :b) [:b :a :c])))
+    (is (= {:a 1, :b 2} (into {} [[:a 1] [:b 2]]))))
 
   (testing "zipmap"
     ; Finally, sometimes you have two sequences that you want to combine into a
     ; map. ‘zipmap’ is great way to do this.
     (is (= {:a 1 :b 2} (zipmap [:a :b] '(1 2))))
-    (is (= __ (zipmap [1 2 3] [3 2 1])))
-    (is (= __ (zipmap [] [:a :b])))
-    (is (= __ (zipmap [1 2 3] [:a :b])))
-    (is (= {:list '() :map {} :vector [] :set #{}} (zipmap __ __)))))
+    (is (= {1 3 2 2 3 1} (zipmap [1 2 3] [3 2 1])))
+    (is (= {} (zipmap [] [:a :b])))
+    (is (= {1 :a 2 :b} (zipmap [1 2 3] [:a :b])))
+    ; (is (= {:list '() :map {} :vector [] :set #{}} (zipmap __ __)))
+    ))
 
 ;;;
 ;;; Part 4: Functions and control structures
@@ -858,37 +863,37 @@
     (is (= "Hello" ((fn [] "Hello"))))
 
     ; Write some functions that return particular values
-    (is (= 42 (__)))
-    (is (= :foo (__)))
-    (is (= [] (__)))
+    (is (= 42 ((fn [] 42))))
+    (is (= :foo ((fn [] :foo))))
+    (is (= [] ((fn [] []))))
 
     ; That is all well and good, but what about functions that take arguments?
     ; The following function returns its first argument.
     (is (= 42 ((fn [arg] arg)
-               42)))
+                42)))
     (is (= :a ((fn [arg] arg)
-               :a)))
+                :a)))
 
     ; Of course, you can do something in the body of a function.  The following
     ; returns the first item of its first argument.
     (is (= 1 ((fn [c] (first c))
-              [1 2 3])))
+               [1 2 3])))
 
     ; Write a function that adds 5 to its argument.
-    (is (adds-5-function? __))
+    (is (adds-5-function? (fn [x] (+ 5 x))))
 
     ; Write a function that returns the third element in a sequence or nil if
     ; there is no such element
-    (is (third-element-function? __))
+    (is (third-element-function? (fn [x] (nth x 2 nil))))
 
     ; A function can take multiple arguments
     (is (= 36 ((fn [a b] (* a b)) 4 9)))
 
     ; Create function that takes two arguments an returns their sum
-    (is (sums-two-args-function? __))
+    (is (sums-two-args-function? (fn [x y] (+ x y))))
 
     ; How about a function that tkaes three arguments and returns the second one?
-    (is (second-of-three-function? __)))
+    (is (second-of-three-function? (fn [a b c] b))))
 
   (testing "functions as arguments"
     ; Additionally, being a functional language, we can take functions as
@@ -898,17 +903,19 @@
     (is (= 3 ((fn [input-fn]
                 ; invoke the function and add one
                 (+ (input-fn) 1))
-              (fn [] 2)))) ; a function that returns 2
+               (fn [] 2))))                                 ; a function that returns 2
 
     ; Now create a function that takes a function (which produces a sequence)
     ; as an argument.  Your function should invoke that function and return and
     ; return the first element from the returned sequence.
-    (is (higher-order-first-function? __))
+    (is (higher-order-first-function? (fn [input-fn]
+                                        (first (input-fn)))))
 
     ; How about a function that takes a function that produces a number.   Upon
     ; invocation, your function will generate that integer and multiply by
     ; five.
-    (is (higher-order-multiply-by-5-function? __)))
+    (is (higher-order-multiply-by-5-function? (fn [input-fn]
+                                                (* 5 (input-fn))))))
 
   (testing "functions as return values"
     ; Naturally, it is also possible to return functions as values.  For
@@ -916,25 +923,28 @@
     ; the argument to the outer function.  In addition to being an example of
     ; higher-order function, it also shows that the inner function closes over
     ; the argument to the inner function.
-    (is (= 42 (((fn [x]
-                  (fn [] x))))))
+    ; (is (= 42 (((fn [x]
+    ;              (fn [] x)
+    ;))))
+    )
 
-    ; Now, create a function that takes a number as an argument.  It should
-    ; return a function that takes an input and multiplies that imput by the by
-    ; the number that was passed into the outer function.
-    ;
-    ; Example:
-    ;  (= 10 ((f 5) 2))
-    (is (multiplier-function? __))
+  ; Now, create a function that takes a number as an argument.  It should
+  ; return a function that takes an input and multiplies that imput by the by
+  ; the number that was passed into the outer function.
+  ;
+  ; Example:
+  ;  (= 10 ((f 5) 2))
+  ; (is (multiplier-function? __))
 
-    ; For the last higher-order function, create a function that takes a
-    ; sequence as an argument.  This outer function returns a function that
-    ; takes a number n as an argument.  The returned function should return the
-    ; first n elements of the sequence.
-    ;
-    ; Example:
-    ;  (= '(1 2) ((f [1 2 3 4) 2))
-    (is (first-n-function? __))))
+  ; For the last higher-order function, create a function that takes a
+  ; sequence as an argument.  This outer function returns a function that
+  ; takes a number n as an argument.  The returned function should return the
+  ; first n elements of the sequence.
+  ;
+  ; Example:
+  ;  (= '(1 2) ((f [1 2 3 4) 2))
+  ;(is (first-n-function? __)))
+   )
 
 
 (deftest branching-control-structures
@@ -942,20 +952,20 @@
 
   (testing "branching with if"
     ; First up is ‘if’.  It works like you would expect it to.
-    (is (= __ (if true :then :else)))
-    (is (= __ (if false :then :else)))
+    (is (= :then (if true :then :else)))
+    (is (= :else (if false :then :else)))
 
     ; Additionally, you can leave out the else form.
-    (is (= __ (if true :then)))
-    (is (= __ (if false :then))))
+    (is (= :then (if true :then)))
+    (is (= nil (if false :then))))
 
   ; It is very important to understand what Clojure considers logically false.
   ; There are two logical false values in Clojure, false and nil.
   (testing "on logical truth"
-    (is (= __ (if nil :then :else)))
-    (is (= __ (if "string" :then :else)))
-    (is (= __ (if 'symbol :then :else)))
-    (is (= __ (if [] :then :else))))
+    (is (= :else (if nil :then :else)))
+    (is (= :then (if "string" :then :else)))
+    (is (= :then (if 'symbol :then :else)))
+    (is (= :then (if [] :then :else))))
 
   (testing "branching with cond"
     ; A Lisp classic is ‘cond’, which takes an even number of forms.  The first
@@ -972,15 +982,15 @@
     (is (= nil (cond
                  false :one
                  false :two)))
-    (is (= __ (cond
+    (is (= :postive (cond
                 (zero? 1) :zero
                 (pos? 1) :postive
                 :else :negative)))
-    (is (= __ (cond
+    (is (= :zero (cond
                 (zero? 0) :zero
                 (pos? 0) :postive
                 :else :negative)))
-    (is (= __ (cond
+    (is (= :negative (cond
                 (zero? -1) :zero
                 (pos? -1) :postive
                 :else :negative))))
@@ -990,33 +1000,33 @@
     ; logical true or false value.
     (is (= :b (and :a :b)))
     (is (= nil (and :a nil)))
-    (is (= __ (and :a false)))
-    (is (= __ (and nil :a)))
-    (is (= __ (and false :a)))
-    (is (= __ (and :a)))
-    (is (= __ (and nil)))
-    (is (= __ (and))))
+    (is (= false (and :a false)))
+    (is (= nil (and nil :a)))
+    (is (= false (and false :a)))
+    (is (= :a (and :a)))
+    (is (= nil (and nil)))
+    (is (= true (and))))
 
   (testing "logical or"
     ; Clojure has a short-circuiting logical ‘or’ that returns the first
     ; logical true value.
     (is (= :a (or :a :b)))
     (is (= :a (or :a nil)))
-    (is (= __ (or :a false)))
-    (is (= __ (or nil :a)))
-    (is (= __ (or false :a)))
-    (is (= __ (or :a)))
-    (is (= __ (or false)))
-    (is (= __ (or))))
+    (is (= :a (or :a false)))
+    (is (= :a (or nil :a)))
+    (is (= :a (or false :a)))
+    (is (= :a (or :a)))
+    (is (= false (or false)))
+    (is (= nil (or))))
 
   (testing "logical not"
     ; Clojure has a logical ‘not’ that returns the true or false if the
     ; argument is logical false or logical true, respectively.
     (is (= true (not false)))
     (is (= false (not true)))
-    (is (= __ (not nil)))
-    (is (= __ (not :a)))
-    (is (= __ (not 'sym)))))
+    (is (= true (not nil)))
+    (is (= false (not :a)))
+    (is (= false (not 'sym)))))
 
 ;;;
 ;;; Part 5: map, filter, and reduce
@@ -1033,14 +1043,14 @@
     ; every element in a sequence, returning a new sequence
     (is (= '(1 2 3 4) (map inc (range 4))))
     (is (= '(true false true false) (map even? (range 4))))
-    (is (= __ (map (fn [x] (+ x 2))
+    (is (= '(1 3 5 7) (map (fn [x] (+ x 2))
                    [-1 1 3 5])))
-    (is (= __ (map {:a 1 :b 2 :c 3 :d 4}
+    (is (= '(1 4 3 2) (map {:a 1 :b 2 :c 3 :d 4}
                    [:a :d :c :b])))
-    (is (= __ (map #{:a} (sorted-set :a :b :c))))
-    (is (= '(0 3 6 9) (map __ (range 4))))
+    (is (= '(:a nil nil) (map #{:a} (sorted-set :a :b :c))))
+    (is (= '(0 3 6 9) (map (fn [x] (* x 3)) (range 4))))
     (is (= '(-2 0 2 4) (map (fn [x] (* 2 (dec x)))
-                            __))))
+                            (range 4)))))
 
   (testing "filter"
     ; ‘filter’ is a higher order function that takes a predicate, a function
@@ -1050,12 +1060,12 @@
     (is (= '(0 2 4) (filter even? (range 6))))
     (is (= '(1 3 5) (filter odd? (range 6))))
 
-    (is (= __ (filter keyword? [0 :a 1 \a "a" :b \b])))
-    (is (= __ (filter symbol? [0 :a 1 \a "a" :b \b])))
-    (is (= __ (filter char? [0 :a 1 \a "a" :b \b])))
-    (is (= '(1 3 2 5) (filter __ [0 1 -2 3 -4 2 5])))
-    (is (= '(-2 -4) (filter __ [0 1 -2 3 -4 2 5])))
-    (is (= '(0 4 8 12 16) (filter (fn [x] (zero? (rem x 4))) __))))
+    (is (= '(:a :b) (filter keyword? [0 :a 1 \a "a" :b \b])))
+    (is (= '() (filter symbol? [0 :a 1 \a "a" :b \b])))
+    (is (= '(\a \b) (filter char? [0 :a 1 \a "a" :b \b])))
+    (is (= '(1 3 2 5) (filter pos? [0 1 -2 3 -4 2 5])))
+    (is (= '(-2 -4) (filter neg? [0 1 -2 3 -4 2 5])))
+    (is (= '(0 4 8 12 16) (filter (fn [x] (zero? (rem x 4))) (range 17)))))
 
   (testing "reduce"
     ; The last of the three functions is ‘reduce’, which is a higher-order
@@ -1064,24 +1074,25 @@
     ; not take an initial value, but its behaviour is more complex).
     (is (= 10 (reduce + 0 (range 5))))
     (is (= 11 (reduce + 1 (range 5))))
-    (is (= __ (reduce * 1 (range 1 6))))
-    (is (= __ (reduce * 2 (range 1 6))))
-    (is (= __ (reduce * 2 '())))
-    (is (= 6 (reduce __ 0 [2 2 2])))
-    (is (= 8 (reduce __ 1 [2 2 2])))
-    (is (= [1 2 3] (reduce conj __ [1 2 3])))
-    (is (= [4 1 2 3] (reduce conj [4 1] __))))
+    (is (= 120 (reduce * 1 (range 1 6))))
+    (is (= 240 (reduce * 2 (range 1 6))))
+    (is (= 2 (reduce * 2 '())))
+    (is (= 6 (reduce + 0 [2 2 2])))
+    (is (= 8 (reduce * 1 [2 2 2])))
+    (is (= [1 2 3] (reduce conj [] [1 2 3])))
+    (is (= [4 1 2 3] (reduce conj [4 1] [2 3])))
+    )
 
   (testing "putting it all together"
     ; Double all of the even numbers from 0 to 9
-    (= '(0 4 8 12 16 18) (map __ (filter __ (range 10))))
+    (= '(0 4 8 12 16 18) (map (fn [x] (* x 2)) (filter even? (range 10))))
 
     ; Multiply every number from 0 to 9 by 3 and get the sum
-    (= 135 (reduce __ __ (map __ (range 10))))
+    (= 135 (reduce + 0 (map (fn [x] (* x 3)) (range 10))))
 
     ; Add all the even numbers from 100 to 199
-    (= 7450 (reduce __ __ (filter __ (range 100 200))))
+    (= 7450 (reduce + 0 (filter even? (range 100 200))))
 
     ; Take all of the even numbers between from -10 to 5, multiply them by 5,
     ; and sum them all up.
-    (= -120 (__ __ __ (__ __ (__ __ (range -10 6)))))))
+    (= -120 (reduce + 0 (map (fn [x] (* x 5)) (filter even? (range -10 6)))))))
